@@ -18,6 +18,6 @@
     <color name="colorSuccess">#59ff8e</color>
     <color name="colorInfo">#5adbff</color>
 
-    <color name="colorTextRegular">#084c5e</color> <!-- Regular Color (Blue) -->
-    <color name="colorTextPressed">#2196A3</color> <!-- Pressed Color (Tomato) -->
+    <color name="colorTextRegular">#084c5e</color>
+    <color name="colorTextPressed">#2196A3</color>
 </resources>
