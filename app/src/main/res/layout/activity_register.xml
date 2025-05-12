@@ -17,11 +17,33 @@
         android:contentDescription="App Logo"
         android:src="@drawable/logo1" />
 
+    <!-- First Name input -->
+    <EditText
+        android:id="@+id/editTextFirstName"
+        style="@style/AppEditText"
+        android:hint="First Name"
+        android:inputType="textPersonName" />
+
+    <!-- Last Name input -->
+    <EditText
+        android:id="@+id/editTextLastName"
+        style="@style/AppEditText"
+        android:hint="Last Name"
+        android:inputType="textPersonName" />
+
+    <!-- Date of Birth input -->
+    <EditText
+        android:id="@+id/editTextDOB"
+        style="@style/AppEditText"
+        android:hint="Date of Birth (YYYY-MM-DD)"
+        android:inputType="date" />
+
     <!-- Email input -->
     <EditText
         android:id="@+id/editTextEmailRegister"
         style="@style/AppEditText"
         android:hint="Email"
+        android:layout_marginTop="20px"
         android:inputType="textEmailAddress" />
 
     <!-- Password input -->

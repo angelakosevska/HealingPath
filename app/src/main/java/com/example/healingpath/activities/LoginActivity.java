@@ -2,7 +2,13 @@ package com.example.healingpath.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,11 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // If the user is already logged in, go directly to the MainActivity
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;
         }
+
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
@@ -37,17 +46,40 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewRegister = findViewById(R.id.textViewRegister); // "Don't have an account? Register"
 
+        // Set OnClickListener for the Login button
         buttonLogin.setOnClickListener(v -> loginUser());
 
-        textViewRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        // Set clickable behavior for "Register" link
+        String text = "Don't have an account? Register";  // The full sentence
+        SpannableString spannableString = new SpannableString(text);
+
+        // Find the starting and ending index of the word "Register"
+        int start = text.indexOf("Register");
+        int end = start + "Register".length();
+
+        // Set the "Register" word to be clickable
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                // When the user clicks on "Register", navigate to RegisterActivity
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set color for the word "Register"
+        int registerColor = getResources().getColor(R.color.colorPrimaryLight);
+        spannableString.setSpan(new ForegroundColorSpan(registerColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Update the TextView with the clickable word and color
+        textViewRegister.setText(spannableString);
+        textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());  // Make it clickable
     }
 
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
+        // Validate email and password
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show();
             return;
@@ -56,12 +88,16 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // Attempt login with Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        // Navigate to MainActivity if login is successful
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
                     } else {
+                        // Show error message if login fails
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
