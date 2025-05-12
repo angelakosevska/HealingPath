@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#0a6078</color>         <!-- Main color -->
+    <color name="colorPrimaryDark">#084c5e</color>     <!-- Darker shade -->
+    <color name="colorPrimaryLight">#2196A3</color>    <!-- Lighter shade -->
+
+    <!-- Other theme colors (optional) -->
+    <color name="colorAccent">#26A69A</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#757575</color>
+
+    <!-- Semantic Colors -->
+    <color name="colorError">#ff6759</color>
+    <color name="colorWarning">#ffee59</color>
+    <color name="colorSuccess">#59ff8e</color>
+    <color name="colorInfo">#5adbff</color>
+
 </resources>

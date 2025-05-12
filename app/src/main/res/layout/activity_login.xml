@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".activities.LoginActivity">
+
+    <!-- Logo at the top -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="App Logo"
+        android:src="@drawable/logo1" />
+
+    <!-- Email input -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        style="@style/AppEditText"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <!-- Password input -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        style="@style/AppEditText"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <!-- Login button -->
+    <Button
+        android:id="@+id/buttonLogin"
+        style="@style/AppButton"
+        android:layout_marginTop="16dp"
+        android:text="Login" />
+
+    <!-- OR separator -->
+    <TextView
+        android:id="@+id/textViewOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:text="OR"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Login as Guest -->
+    <Button
+        android:id="@+id/buttonLoginAsGuest"
+        style="@style/AppButton"
+        android:text="Login as Guest" />
+
+    <!-- Social login buttons -->
+    <Button
+        android:id="@+id/buttonLoginWithGoogle"
+        style="@style/AppButton"
+        android:layout_marginTop="16dp"
+        android:text="Login with Google" />
+
+    <Button
+        android:id="@+id/buttonLoginWithFacebook"
+        style="@style/AppButton"
+        android:layout_marginTop="16dp"
+        android:text="Login with Facebook" />
+
+    <!-- Register link -->
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Don't have an account? Register"
+        android:textColor="?android:attr/colorAccent"
+        android:textSize="14sp" />
+</LinearLayout>
