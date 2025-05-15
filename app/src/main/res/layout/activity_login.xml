@@ -6,6 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp"
+    android:background="@color/white"
     tools:context=".activities.LoginActivity">
 
     <!-- Logo at the top -->
@@ -79,6 +80,6 @@
         android:clickable="true"
         android:focusable="true"
         android:text="Don't have an account? Register"
-        android:textColor="?android:attr/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 </LinearLayout>

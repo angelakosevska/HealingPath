@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.DatePickerDialog;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 import com.example.healingpath.models.User;
 
@@ -22,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
         editTextDOB = findViewById(R.id.editTextDOB);
+        editTextDOB.setFocusable(false);
+        editTextDOB.setOnClickListener(v -> showDatePickerDialog());
         editTextEmailRegister = findViewById(R.id.editTextEmailRegister);
         editTextPasswordRegister = findViewById(R.id.editTextPasswordRegister);
         editTextConfirmPasswordRegister = findViewById(R.id.editTextConfirmPasswordRegister);
@@ -159,4 +166,23 @@ public class RegisterActivity extends AppCompatActivity {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    // Format date as dd/MM/yyyy
+                    String formattedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+                    editTextDOB.setText(formattedDate);
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+
+        datePickerDialog.show();
+    }
+
 }
