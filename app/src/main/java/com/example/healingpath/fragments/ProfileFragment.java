@@ -70,9 +70,9 @@ public class ProfileFragment extends Fragment {
                         String dob = documentSnapshot.getString("dob");
                         String email = documentSnapshot.getString("email");
 
-                        textViewFullName.setText("Name: " + firstName + " " + lastName);
-                        textViewDOB.setText("DOB: " + dob);
-                        textViewEmail.setText("Email: " + email);
+                        textViewFullName.setText(firstName + " " + lastName);
+                        textViewDOB.setText(dob);
+                        textViewEmail.setText(email);
                     } else {
                         Toast.makeText(getContext(), "User profile not found", Toast.LENGTH_SHORT).show();
                     }

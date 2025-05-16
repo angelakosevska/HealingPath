@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "336408993226",
-    "project_id": "healing-path-d1472",
-    "storage_bucket": "healing-path-d1472.firebasestorage.app"
+    "project_number": "739562432257",
+    "project_id": "injurydiary-ba779",
+    "storage_bucket": "injurydiary-ba779.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:336408993226:android:d8a1342911feef05f48333",
+        "mobilesdk_app_id": "1:739562432257:android:31eb9d84af29371a0e1d00",
         "android_client_info": {
           "package_name": "com.example.healingpath"
         }
       },
       "oauth_client": [
         {
-          "client_id": "336408993226-hngnp1pgsfa37ga3ra4ecckbb4dh0ndm.apps.googleusercontent.com",
+          "client_id": "739562432257-e9lr4oomsjsp1rrrau3opvqm7b0ud1d1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBHycCdWigql5qV00b4zSj6c-MYsKRw8IQ"
+          "current_key": "AIzaSyDtswdS93G5G_LCkUAmGzBE6-Ba0zhd0Uw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "336408993226-hngnp1pgsfa37ga3ra4ecckbb4dh0ndm.apps.googleusercontent.com",
+              "client_id": "739562432257-e9lr4oomsjsp1rrrau3opvqm7b0ud1d1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -30,10 +30,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -42,5 +42,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.google.firebase:firebase-auth:22.3.0")
-    implementation("com.google.firebase:firebase-firestore:24.10.0") // Optional if you use Firestore
+    implementation("com.google.firebase:firebase-firestore:24.10.0")
+
 }
+

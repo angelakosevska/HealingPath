@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         int start = text.indexOf("Register");
         int end = start + "Register".length();
 
-        // Set the "Register" word to be clickable
+
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -66,11 +66,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Set color for the word "Register"
+
         int registerColor = getResources().getColor(R.color.colorPrimaryLight);
         spannableString.setSpan(new ForegroundColorSpan(registerColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Update the TextView with the clickable word and color
+
         textViewRegister.setText(spannableString);
         textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());  // Make it clickable
     }
