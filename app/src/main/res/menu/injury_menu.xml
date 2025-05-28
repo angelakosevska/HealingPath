@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_notes"
+        android:title="Notes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_files"
+        android:title="Files"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reminders"
+        android:title="Reminders"
+        app:showAsAction="never" />
+</menu>

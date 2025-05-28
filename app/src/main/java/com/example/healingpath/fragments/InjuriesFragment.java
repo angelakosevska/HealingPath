@@ -56,7 +56,7 @@ public class InjuriesFragment extends Fragment {
     }
 
     private void openInjuryDetailFragment(Injury injury) {
-        InjuryDetailFragment fragment = InjuryDetailFragment.newInstance(injury.getId());
+        InjuryDetailsFragment fragment = InjuryDetailsFragment.newInstance(injury.getId());
 
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -87,11 +87,16 @@ public class InjuriesFragment extends Fragment {
                 return;
             }
 
-            String id = db.collection("injuries").document().getId();
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String id = db.collection("users").document(userId).collection("injuries").document().getId();
+
             Injury injury = new Injury(id, title, desc, System.currentTimeMillis(), userId);
 
-            db.collection("injuries").document(id).set(injury)
+            db.collection("users")
+                    .document(userId)
+                    .collection("injuries")
+                    .document(id)
+                    .set(injury)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(getContext(), "Injury added", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
@@ -100,14 +105,17 @@ public class InjuriesFragment extends Fragment {
                             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         });
 
+
         dialog.show();
     }
+
 
     private void loadInjuriesFromFirestore() {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        db.collection("injuries")
-                .whereEqualTo("userId", currentUserId)
+        db.collection("users")
+                .document(currentUserId)
+                .collection("injuries")
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
                         Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -124,4 +132,5 @@ public class InjuriesFragment extends Fragment {
                     }
                 });
     }
+
 }

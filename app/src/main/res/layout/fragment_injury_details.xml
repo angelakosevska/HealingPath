@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Back to Info Button -->
+
+    <!-- Top toggle buttons styled like top nav -->
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/top_nav_toggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="#00EEEEEE"
+        app:selectionRequired="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Notes" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_files"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Files" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reminders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reminders" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <!--<ImageButton
+        android:id="@+id/btn_back_to_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back to Info"
+        android:src="@drawable/injury" /> -->
+
+
+    <FrameLayout
+        android:id="@+id/injury_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>
