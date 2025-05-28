@@ -1,7 +1,6 @@
 package com.example.healingpath.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingpath.R;
 import com.example.healingpath.models.Injury;
-import com.example.healingpath.activities.InjuryDetailActivity;
-
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class InjuryAdapter extends RecyclerView.Adapter<InjuryAdapter.InjuryViewHolder> {
 
-    private List<Injury> injuryList;
-    private Context context;
+    private final List<Injury> injuryList;
+    private final Context context;
+    private final OnInjuryClickListener listener;
 
-    public InjuryAdapter(Context context, List<Injury> injuryList) {
+    // Interface to be implemented by the Fragment
+    public interface OnInjuryClickListener {
+        void onInjuryClick(Injury injury);
+    }
+
+    public InjuryAdapter(Context context, ArrayList<Injury> injuryList, OnInjuryClickListener listener) {
         this.context = context;
         this.injuryList = injuryList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,9 +50,9 @@ public class InjuryAdapter extends RecyclerView.Adapter<InjuryAdapter.InjuryView
         holder.tvDate.setText(formatDate(injury.getTimestamp()));
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, InjuryDetailActivity.class);
-            intent.putExtra("injury_id", injury.getId());
-            context.startActivity(intent);
+            if (listener != null) {
+                listener.onInjuryClick(injury);
+            }
         });
     }
 

@@ -18,11 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healingpath.R;
 import com.example.healingpath.adapters.InjuryAdapter;
 import com.example.healingpath.models.Injury;
-import com.google.firebase.firestore.EventListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -45,7 +43,8 @@ public class InjuriesFragment extends Fragment {
 
         RecyclerView recyclerView = root.findViewById(R.id.rv_injuries);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new InjuryAdapter(getContext(), injuryList);
+
+        adapter = new InjuryAdapter(getContext(), injuryList, this::openInjuryDetailFragment);
         recyclerView.setAdapter(adapter);
 
         Button btnAddInjury = root.findViewById(R.id.btn_add_injury);
@@ -54,6 +53,16 @@ public class InjuriesFragment extends Fragment {
         loadInjuriesFromFirestore();
 
         return root;
+    }
+
+    private void openInjuryDetailFragment(Injury injury) {
+        InjuryDetailFragment fragment = InjuryDetailFragment.newInstance(injury.getId());
+
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void showAddInjuryDialog() {
@@ -79,7 +88,7 @@ public class InjuriesFragment extends Fragment {
             }
 
             String id = db.collection("injuries").document().getId();
-            String userId = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Injury injury = new Injury(id, title, desc, System.currentTimeMillis(), userId);
 
             db.collection("injuries").document(id).set(injury)
@@ -94,10 +103,8 @@ public class InjuriesFragment extends Fragment {
         dialog.show();
     }
 
-
-
     private void loadInjuriesFromFirestore() {
-        String currentUserId = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("injuries")
                 .whereEqualTo("userId", currentUserId)
@@ -117,5 +124,4 @@ public class InjuriesFragment extends Fragment {
                     }
                 });
     }
-
 }
