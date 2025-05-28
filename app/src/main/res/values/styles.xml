@@ -24,7 +24,7 @@
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">0dp</item> <!-- Use 4dp if you want more square -->
+        <item name="cornerRadius">16dp</item> <!-- Use 4dp if you want more square -->
     </style>
 
     <!-- Consistent EditText Style -->

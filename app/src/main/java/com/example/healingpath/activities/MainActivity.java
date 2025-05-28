@@ -15,7 +15,7 @@ import com.google.firebase.FirebaseApp;
 
 
 public class MainActivity extends AppCompatActivity {
-
+// top and the bottom things
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
 
