@@ -1,6 +1,9 @@
 package com.example.healingpath.fragments;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+// import android.widget.ImageView; // Commented out
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +23,7 @@ import com.example.healingpath.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+// import com.google.firebase.storage.StorageReference; // Commented out
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -30,6 +35,11 @@ public class EditProfileFragment extends Fragment {
     private EditText editTextFirstName, editTextLastName, editTextEmail, editTextDOB;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+
+    // private static final int PICK_IMAGE_REQUEST = 1; // Commented out
+    // private Uri imageUri; // Commented out
+    // private ImageView imageViewEditPhoto; // Commented out
+    // private StorageReference storageRef; // Commented out
 
     @Nullable
     @Override
@@ -59,8 +69,33 @@ public class EditProfileFragment extends Fragment {
 
         loadUserData();
 
+        /*
+        imageViewEditPhoto = view.findViewById(R.id.imageViewEditPhoto); // Commented out
+        storageRef = com.google.firebase.storage.FirebaseStorage.getInstance().getReference("profile_pics");
+        imageViewEditPhoto.setOnClickListener(v -> openFileChooser());
+        */
+
         saveButton.setOnClickListener(v -> saveProfileChanges());
     }
+
+    /*
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            imageViewEditPhoto.setImageURI(imageUri); // Show preview in ImageView
+        }
+    }
+    */
 
     private void showDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
@@ -97,20 +132,10 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void saveProfileChanges() {
-        Bundle result = new Bundle();
-        result.putBoolean("profileUpdated", true);
-        getParentFragmentManager().setFragmentResult("editProfileResult", result);
-        getParentFragmentManager().popBackStack(); // go back to ProfileFragment
         String firstName = editTextFirstName.getText().toString().trim();
         String lastName = editTextLastName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String dob = editTextDOB.getText().toString().trim();
-
-//        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) ||
-//                TextUtils.isEmpty(email) || TextUtils.isEmpty(dob)) {
-//            Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) return;
@@ -121,25 +146,28 @@ public class EditProfileFragment extends Fragment {
         updates.put("email", email);
         updates.put("dob", dob);
 
-        db.collection("users").document(currentUser.getUid())
+
+        updateUserData(currentUser.getUid(), updates);
+    }
+
+    private void updateUserData(String uid, Map<String, Object> updates) {
+        db.collection("users").document(uid)
                 .update(updates)
                 .addOnSuccessListener(unused -> {
                     if (isAdded() && getContext() != null) {
                         Toast.makeText(getContext(), "Profile updated", Toast.LENGTH_SHORT).show();
-                        try {
-                            getParentFragmentManager().popBackStack();
-                            // return to ProfileFragment
-                        } catch (IllegalStateException e) {
-                            Log.e("UpdateProfile", "Error popping back stack: " + e.getMessage());
-                        }
 
+                        Bundle result = new Bundle();
+                        result.putBoolean("profileUpdated", true);
+                        getParentFragmentManager().setFragmentResult("editProfileResult", result);
+
+                        getParentFragmentManager().popBackStack();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    if (isAdded() && getContext() != null) { // Check if fragment is attached and has context
+                    if (isAdded() && getContext() != null) {
                         Toast.makeText(getContext(), "Failed to update: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 }

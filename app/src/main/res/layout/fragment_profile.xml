@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white">
 
-    <!-- Edit Profile Icon (top right) -->
-    <ImageButton
-        android:id="@+id/buttonEditProfile"
-        android:layout_width="wrap_content"
+    <!-- Header row: Full name + Edit button -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Edit Profile"
-        android:src="@android:drawable/ic_menu_edit"
-        app:tint="@color/colorPrimaryDark" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
 
-    <!-- Clickable Profile Image -->
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:clickable="true"
-        android:contentDescription="Profile Picture"
-        android:focusable="true"
-        android:src="@drawable/profile" />
+        <TextView
+            android:id="@+id/textViewFullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Full Name"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
-    <!-- Full Name -->
-    <TextView
-        android:id="@+id/textViewFullName"
-        style="@style/AppTextView"
-        android:text="Full Name"
-        android:textSize="18sp" />
+        <ImageButton
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Edit Profile"
+            android:src="@android:drawable/ic_menu_edit"
+            app:tint="@color/colorPrimaryDark" />
+    </LinearLayout>
 
-    <!-- Date of Birth -->
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD" />
+
+    <!-- Date of Birth Label and Value -->
     <TextView
         android:id="@+id/textViewDOB"
-        style="@style/AppTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Date of Birth"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/colorTextSecondary"
+        android:layout_marginTop="16dp"/>
 
-    <!-- Email -->
+    <!-- Email Label and Value -->
     <TextView
         android:id="@+id/textViewEmail"
-        style="@style/AppTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Email"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/colorTextSecondary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Logout Button -->
     <Button
         android:id="@+id/buttonLogout"
         style="@style/AppButton"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Logout" />
 
 </LinearLayout>
