@@ -49,29 +49,44 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         return new NoteViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        NoteItem note = notesList.get(position);
-        holder.noteText.setText(note.getNote());
-        holder.painLevel.setText("Pain: " + note.getPain());
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
-        holder.timestamp.setText(date);
-
-        // Set background color based on pain level
-//        int painLevel = note.getPain();
-//        if (painLevel >= 0 && painLevel <= 10) {
-//            int bgColor = painColors[painLevel];
+//    @Override
+//    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+//        NoteItem note = notesList.get(position);
+//        holder.noteText.setText(note.getNote());
+//        holder.painLevel.setText("Pain: " + note.getPain());
+//        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
+//        holder.timestamp.setText(date);
 //
-//            GradientDrawable background = new GradientDrawable();
-//            background.setColor(bgColor);
-//            background.setCornerRadius(24f); // Optional: adjust radius as needed
-//            holder.noteLayout.setBackground(background);
-//        }
-        int[] painColors = getPainColors(holder.itemView.getContext());
-        int pain = note.getPain(); // Assume pain is in range [1-10]
-        int index = Math.max(0, Math.min(9, pain - 1));
-        holder.noteLayout.setBackgroundColor(painColors[index]);
-    }
+//
+//
+//        int[] painColors = getPainColors(holder.itemView.getContext());
+//        int pain = note.getPain();
+//        int index = Math.max(0, Math.min(9, pain - 1));
+//        holder.noteLayout.setBackgroundColor(painColors[index]);
+//    }
+@Override
+public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+    NoteItem note = notesList.get(position);
+    holder.noteText.setText(note.getNote());
+    holder.painLevel.setText("Pain: " + note.getPain());
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
+    holder.timestamp.setText(date);
+
+    // Get pain level (ensure it's between 1 and 10)
+    int pain = note.getPain();
+    int index = Math.max(0, Math.min(9, pain - 1));
+
+    // Get array of 10 colors
+    int[] painColors = getPainColors(holder.itemView.getContext());
+
+    // Create a drawable with the selected color and rounded corners
+    GradientDrawable background = new GradientDrawable();
+    background.setColor(painColors[index]);
+    background.setCornerRadius(24f); // You can change the radius
+
+    // Apply the background to the layout
+    holder.noteLayout.setBackground(background);
+}
 
     @Override
     public int getItemCount() {

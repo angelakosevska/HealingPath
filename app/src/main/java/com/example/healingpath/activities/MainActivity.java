@@ -1,8 +1,14 @@
 package com.example.healingpath.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.healingpath.R;
@@ -15,7 +21,7 @@ import com.google.firebase.FirebaseApp;
 
 
 public class MainActivity extends AppCompatActivity {
-// top and the bottom things
+    // top and the bottom things
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
 
@@ -30,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
-
-        // Load default fragment
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);
+            }
+        }
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()

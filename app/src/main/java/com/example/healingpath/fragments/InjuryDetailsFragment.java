@@ -66,8 +66,6 @@ public class InjuryDetailsFragment extends Fragment {
                     selected = InjuryInfoFragment.newInstance(injuryId);
                 } else if (checkedId == R.id.btn_notes) {
                     selected = NotesFragment.newInstance(injuryId);
-                } else if (checkedId == R.id.btn_files) {
-                    selected = FilesFragment.newInstance(injuryId);
                 } else if (checkedId == R.id.btn_reminders) {
                     selected = RemindersFragment.newInstance(injuryId);
                 }
