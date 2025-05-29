@@ -49,15 +49,22 @@ public class InjuryDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         switchToTab(InjuryInfoFragment.newInstance(injuryId));
 
         MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.top_nav_toggle);
+
         if (toggleGroup != null) {
+            toggleGroup.check(R.id.btn_info);
+            updateButtonTextColors(toggleGroup, R.id.btn_info); // Set initial text color
+
             toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
                 if (!isChecked) return;
 
                 Fragment selected = null;
-                if (checkedId == R.id.btn_notes) {
+                if (checkedId == R.id.btn_info) {
+                    selected = InjuryInfoFragment.newInstance(injuryId);
+                } else if (checkedId == R.id.btn_notes) {
                     selected = NotesFragment.newInstance(injuryId);
                 } else if (checkedId == R.id.btn_files) {
                     selected = FilesFragment.newInstance(injuryId);
@@ -67,12 +74,27 @@ public class InjuryDetailsFragment extends Fragment {
 
                 if (selected != null) {
                     switchToTab(selected);
+                    updateButtonTextColors(group, checkedId); // Update text color when changed
                 }
             });
-
-
         }
     }
+    private void updateButtonTextColors(MaterialButtonToggleGroup group, int selectedId) {
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof com.google.android.material.button.MaterialButton) {
+                com.google.android.material.button.MaterialButton button = (com.google.android.material.button.MaterialButton) child;
+
+                if (button.getId() == selectedId) {
+                    button.setTextColor(getResources().getColor(android.R.color.white));
+                } else {
+                    button.setTextColor(getResources().getColor(android.R.color.black));
+                }
+            }
+        }
+    }
+
+
 
     private void switchToTab(Fragment fragment) {
         getChildFragmentManager()

@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#F9F9F9"
+    android:id="@+id/note_layout"
     android:layout_marginBottom="8dp">
 
     <TextView
         android:id="@+id/tv_note_text"
         android:text="Note content"
         android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -17,6 +19,7 @@
         android:id="@+id/tv_pain_level"
         android:text="Pain: 5"
         android:textSize="14sp"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -3,12 +3,9 @@
     android:color="?attr/colorControlHighlight">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#A60A6078" />
+            <solid android:color="#76A1B6" />
             <corners android:radius="16dp" />
-           <!-- <stroke
-                android:width="1dp"
-                android:color="@color/colorPrimary"
-                /> -->
+
         </shape>
     </item>
 </ripple>

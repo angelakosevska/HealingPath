@@ -1,10 +1,15 @@
 package com.example.healingpath.adapters;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingpath.R;
@@ -17,6 +22,21 @@ import java.util.Locale;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
     private final List<NoteItem> notesList;
+
+
+//    private final int[] painColors = new int[]{
+//            0xFFE0F7FA, // 0
+//            0xFFB2EBF2, // 1
+//            0xFF80DEEA, // 2
+//            0xFF4DD0E1, // 3
+//            0xFF26C6DA, // 4
+//            0xFF00BCD4, // 5
+//            0xFF00ACC1, // 6
+//            0xFF0097A7, // 7
+//            0xFF00838F, // 8
+//            0xFF006064, // 9
+//            0xFF004D40  // 10
+//    };
 
     public NotesAdapter(List<NoteItem> notesList) {
         this.notesList = notesList;
@@ -36,8 +56,22 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         holder.painLevel.setText("Pain: " + note.getPain());
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
         holder.timestamp.setText(date);
-    }
 
+        // Set background color based on pain level
+//        int painLevel = note.getPain();
+//        if (painLevel >= 0 && painLevel <= 10) {
+//            int bgColor = painColors[painLevel];
+//
+//            GradientDrawable background = new GradientDrawable();
+//            background.setColor(bgColor);
+//            background.setCornerRadius(24f); // Optional: adjust radius as needed
+//            holder.noteLayout.setBackground(background);
+//        }
+        int[] painColors = getPainColors(holder.itemView.getContext());
+        int pain = note.getPain(); // Assume pain is in range [1-10]
+        int index = Math.max(0, Math.min(9, pain - 1));
+        holder.noteLayout.setBackgroundColor(painColors[index]);
+    }
 
     @Override
     public int getItemCount() {
@@ -46,12 +80,47 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView noteText, painLevel, timestamp;
+        View noteLayout;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             noteText = itemView.findViewById(R.id.tv_note_text);
             painLevel = itemView.findViewById(R.id.tv_pain_level);
             timestamp = itemView.findViewById(R.id.tv_timestamp);
+            noteLayout = itemView.findViewById(R.id.note_layout); // root layout in item_note.xml
         }
     }
+
+    private int[] getPainColors(Context context) {
+        int[] colors = new int[10];
+        int start = ContextCompat.getColor(context, R.color.colorSuccess); // Low pain
+        int middle = ContextCompat.getColor(context, R.color.colorWarning); // Medium pain
+        int end = ContextCompat.getColor(context, R.color.colorError); // High pain
+
+        for (int i = 0; i < 10; i++) {
+            float fraction = i / 9f;
+
+            if (fraction < 0.5f) {
+                // Interpolate between start and middle
+                float localFraction = fraction * 2f;
+                colors[i] = blendColors(start, middle, localFraction);
+            } else {
+                // Interpolate between middle and end
+                float localFraction = (fraction - 0.5f) * 2f;
+                colors[i] = blendColors(middle, end, localFraction);
+            }
+        }
+        return colors;
+    }
+
+    private int blendColors(int colorFrom, int colorTo, float ratio) {
+        final float inverseRatio = 1f - ratio;
+
+        float r = Color.red(colorFrom) * inverseRatio + Color.red(colorTo) * ratio;
+        float g = Color.green(colorFrom) * inverseRatio + Color.green(colorTo) * ratio;
+        float b = Color.blue(colorFrom) * inverseRatio + Color.blue(colorTo) * ratio;
+
+        return Color.rgb((int) r, (int) g, (int) b);
+    }
+
 }
