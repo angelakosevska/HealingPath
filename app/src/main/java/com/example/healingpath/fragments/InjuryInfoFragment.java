@@ -107,9 +107,9 @@ public class InjuryInfoFragment extends Fragment {
 
         // Create note data
         Map<String, Object> note = new HashMap<>();
-        note.put("text", noteText);
+        note.put("note", noteText);
         note.put("timestamp", System.currentTimeMillis());
-        note.put("painLevel", painLevel);
+        note.put("pain", painLevel);
 
         FirebaseFirestore.getInstance()
                 .collection("users")

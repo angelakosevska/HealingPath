@@ -38,6 +38,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         holder.timestamp.setText(date);
     }
 
+
     @Override
     public int getItemCount() {
         return notesList.size();
