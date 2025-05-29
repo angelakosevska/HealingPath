@@ -13,8 +13,10 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.SeekBar;
@@ -51,8 +53,7 @@ public class InjuryInfoFragment extends Fragment {
     private SeekBar seekBarPain;
     private EditText etNoteInput;
     private Button btnSaveNote;
-    private EditText etImageUrl;
-    private Button btnUploadUrl;
+
 
     public static InjuryInfoFragment newInstance(String injuryId) {
         InjuryInfoFragment fragment = new InjuryInfoFragment();
@@ -112,7 +113,16 @@ public class InjuryInfoFragment extends Fragment {
             }
         });
 
+        Spinner spinnerMood = view.findViewById(R.id.spinner_mood);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.mood_options,
+                R.layout.item_spinner
+        );
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown); // custom dropdown
+        spinnerMood.setAdapter(adapter);
 
+        spinnerMood.setAdapter(adapter);
     }
 
     private void showDateTimePicker() {
@@ -204,12 +214,16 @@ public class InjuryInfoFragment extends Fragment {
             return;
         }
 
+        Spinner spinnerMood = requireView().findViewById(R.id.spinner_mood); // get mood spinner
+        String mood = spinnerMood.getSelectedItem().toString(); // get selected mood
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Map<String, Object> note = new HashMap<>();
         note.put("note", noteText);
         note.put("timestamp", System.currentTimeMillis());
         note.put("pain", painLevel);
+        note.put("mood", mood); // ✅ save mood to Firestore
 
         FirebaseFirestore.getInstance()
                 .collection("users")
@@ -226,6 +240,7 @@ public class InjuryInfoFragment extends Fragment {
                     Toast.makeText(getContext(), "Error saving note", Toast.LENGTH_SHORT).show();
                 });
     }
+
 
     private void scheduleReminder(long timestamp, String note, String reminderId) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();

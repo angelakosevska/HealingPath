@@ -49,44 +49,32 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         return new NoteViewHolder(view);
     }
 
-//    @Override
-//    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-//        NoteItem note = notesList.get(position);
-//        holder.noteText.setText(note.getNote());
-//        holder.painLevel.setText("Pain: " + note.getPain());
-//        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
-//        holder.timestamp.setText(date);
-//
-//
-//
-//        int[] painColors = getPainColors(holder.itemView.getContext());
-//        int pain = note.getPain();
-//        int index = Math.max(0, Math.min(9, pain - 1));
-//        holder.noteLayout.setBackgroundColor(painColors[index]);
-//    }
-@Override
-public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-    NoteItem note = notesList.get(position);
-    holder.noteText.setText(note.getNote());
-    holder.painLevel.setText("Pain: " + note.getPain());
-    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
-    holder.timestamp.setText(date);
 
-    // Get pain level (ensure it's between 1 and 10)
-    int pain = note.getPain();
-    int index = Math.max(0, Math.min(9, pain - 1));
+    @Override
+    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+        NoteItem note = notesList.get(position);
+        holder.noteText.setText(note.getNote());
+        holder.painLevel.setText("Pain: " + note.getPain());
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
+        holder.timestamp.setText(date);
+        String moodEmoji = note.getMood() != null ? note.getMood() : "😐";
+        holder.mood.setText("Mood: " + moodEmoji);
 
-    // Get array of 10 colors
-    int[] painColors = getPainColors(holder.itemView.getContext());
+        // Get pain level (ensure it's between 1 and 10)
+        int pain = note.getPain();
+        int index = Math.max(0, Math.min(9, pain - 1));
 
-    // Create a drawable with the selected color and rounded corners
-    GradientDrawable background = new GradientDrawable();
-    background.setColor(painColors[index]);
-    background.setCornerRadius(24f); // You can change the radius
+        // Get array of 10 colors
+        int[] painColors = getPainColors(holder.itemView.getContext());
 
-    // Apply the background to the layout
-    holder.noteLayout.setBackground(background);
-}
+        // Create a drawable with the selected color and rounded corners
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(painColors[index]);
+        background.setCornerRadius(24f); // You can change the radius
+
+        // Apply the background to the layout
+        holder.noteLayout.setBackground(background);
+    }
 
     @Override
     public int getItemCount() {
@@ -94,7 +82,7 @@ public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView noteText, painLevel, timestamp;
+        TextView noteText, painLevel, timestamp, mood;
         View noteLayout;
 
         public NoteViewHolder(@NonNull View itemView) {
@@ -102,15 +90,16 @@ public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
             noteText = itemView.findViewById(R.id.tv_note_text);
             painLevel = itemView.findViewById(R.id.tv_pain_level);
             timestamp = itemView.findViewById(R.id.tv_timestamp);
+            mood = itemView.findViewById(R.id.tv_mood);
             noteLayout = itemView.findViewById(R.id.note_layout); // root layout in item_note.xml
         }
     }
 
     private int[] getPainColors(Context context) {
         int[] colors = new int[10];
-        int start = ContextCompat.getColor(context, R.color.colorSuccess); // Low pain
-        int middle = ContextCompat.getColor(context, R.color.colorWarning); // Medium pain
-        int end = ContextCompat.getColor(context, R.color.colorError); // High pain
+        int start = ContextCompat.getColor(context, R.color.colorStart); // Low pain
+        int middle = ContextCompat.getColor(context, R.color.colorMid); // Medium pain
+        int end = ContextCompat.getColor(context, R.color.colorEnd); // High pain
 
         for (int i = 0; i < 10; i++) {
             float fraction = i / 9f;

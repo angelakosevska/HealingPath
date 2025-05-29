@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">HealingPath</string>
+
+    <string-array name="mood_options">
+        <item>🙂 Neutral</item>
+        <item>😊 Happy</item>
+        <item>😢 Sad</item>
+        <item>😠 Frustrated</item>
+        <item>🤕 In pain</item>
+    </string-array>
 </resources>

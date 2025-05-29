@@ -1,16 +1,18 @@
 package com.example.healingpath.models;
 
 public class NoteItem {
-    private String note;       // match Firestore field name
-    private int pain;          // match Firestore field name
+    private String note;
+    private int pain;
     private long timestamp;
+    private String mood;
 
     public NoteItem() {}
 
-    public NoteItem(String note, int pain, long timestamp) {
+    public NoteItem(String note, int pain, long timestamp, String mood) {
         this.note = note;
         this.pain = pain;
         this.timestamp = timestamp;
+        this.mood = mood;
     }
 
     public String getNote() {
@@ -23,5 +25,9 @@ public class NoteItem {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public String getMood() {
+        return mood;
     }
 }

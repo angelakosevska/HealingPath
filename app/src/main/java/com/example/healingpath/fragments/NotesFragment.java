@@ -16,6 +16,7 @@ import com.example.healingpath.adapters.NotesAdapter;
 import com.example.healingpath.models.NoteItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class NotesFragment extends Fragment {
                 .collection("injuries")
                 .document(injuryId)
                 .collection("dailyNotes")
-                .orderBy("timestamp")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     noteList.clear();

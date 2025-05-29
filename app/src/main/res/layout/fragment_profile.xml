@@ -37,10 +37,6 @@
     </LinearLayout>
 
     <!-- Divider -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DDDDDD" />
 
     <!-- Date of Birth Label and Value -->
     <TextView

@@ -11,9 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="#00333333"
+
         app:selectionRequired="false"
+        android:elevation="2dp"
         app:singleSelection="true">
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_info"
@@ -30,8 +32,6 @@
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:text="Notes" />
-
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_reminders"

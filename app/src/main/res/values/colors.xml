@@ -20,4 +20,9 @@
 
     <color name="colorTextRegular">#084c5e</color>
     <color name="colorTextPressed">#2196A3</color>
+
+    <!-- Notes Colors -->
+    <color name="colorEnd">#FFA299</color>
+    <color name="colorMid">#FFF599</color>
+    <color name="colorStart">#99FFB9</color>
 </resources>
