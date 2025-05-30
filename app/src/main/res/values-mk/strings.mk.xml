@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Патот на заздравување</string>
+
+    <string-array name="mood_options">
+        <item>🙂 Неутрално</item>
+        <item>😊 Среќен/Среќна</item>
+        <item>😢 Тажен/Тажна</item>
+        <item>😠 Фрустриран/Фрустрирана</item>
+        <item>🤕 Во болка</item>
+    </string-array>
+</resources>

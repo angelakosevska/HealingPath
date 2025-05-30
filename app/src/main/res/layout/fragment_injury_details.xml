@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Log" />
+            android:text="@string/log" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_notes"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Notes" />
+            android:text="@string/notes" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_reminders"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Reminders" />
+            android:text="@string/reminders" />
 
 
     </com.google.android.material.button.MaterialButtonToggleGroup>

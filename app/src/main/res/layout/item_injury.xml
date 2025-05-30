@@ -12,7 +12,7 @@
         android:id="@+id/tv_injury_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Injury Title"
+        android:text="@string/title"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Description here"
+        android:text="@string/description"
         android:textColor="@color/white"
         android:textSize="14sp" />
 
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Jan 1, 2025"
+        android:text="@string/date"
         android:textColor="#333333"
         android:textSize="12sp" />
 </LinearLayout>

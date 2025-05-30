@@ -12,7 +12,7 @@
         style="@style/AppTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
         android:layout_marginBottom="16dp" />
 
@@ -21,7 +21,7 @@
         style="@style/AppTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
         android:layout_marginBottom="16dp" />
 
@@ -30,7 +30,7 @@
         style="@style/AppTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="16dp" />
 
@@ -39,7 +39,7 @@
         style="@style/AppTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date of Birth"
+        android:hint="@string/date_of_birth"
         android:focusable="false"
         android:clickable="true"
         android:layout_marginBottom="24dp" />
@@ -49,6 +49,6 @@
         style="@style/AppButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="@string/save" />
 
 </LinearLayout>

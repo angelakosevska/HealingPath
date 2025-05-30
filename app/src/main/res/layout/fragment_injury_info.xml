@@ -12,7 +12,7 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Injury Title"
+        android:text="@string/title"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_marginVertical="8dp"
-        android:text="Description of the injury goes here."
+        android:text="@string/description"
         android:textColor="@color/colorPrimaryDark" />
 
     <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="14sp"
-            android:text="Pain Level:"
+            android:text="@string/pain_level"
             android:textColor="@color/colorPrimary" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="8dp"
-            android:text="Enter log" />
+            android:text="@string/log" />
 
     </LinearLayout>
 
@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:text="Set Reminder" />
+        android:text="@string/set_reminder" />
 
 
 </LinearLayout>

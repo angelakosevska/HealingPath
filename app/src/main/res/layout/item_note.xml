@@ -1,41 +1,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="12dp"
-    android:orientation="vertical"
+    android:id="@+id/note_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/note_layout"
+    android:layout_marginBottom="8dp"
     android:elevation="2dp"
-    android:layout_marginBottom="8dp">
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/tv_note_text"
-        android:text="Note content"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/note_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_pain_level"
-        android:text="Pain: 5"
-        android:textSize="14sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+
+        android:text="@string/pain_level"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_mood"
-        android:text="Mood: 😊"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="@string/mood"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_timestamp"
-        android:text="2024-05-28"
-        android:textSize="12sp"
-        android:textColor="#888888"
-        android:layout_marginTop="2dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="2024-05-28"
+        android:textColor="#888888"
+        android:textSize="12sp" />
 </LinearLayout>

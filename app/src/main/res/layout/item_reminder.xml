@@ -4,21 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
-    android:background="#A70A6078"
+    android:layout_margin="16dp"
+    android:background="#FF8079"
     android:elevation="2dp"
     android:layout_marginBottom="8dp">
 
     <TextView
         android:id="@+id/text_note_reminder"
+        android:text="@string/note_content"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/text_time_reminder"
-        android:textColor="@android:color/darker_gray"
+        android:text="@string/time"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

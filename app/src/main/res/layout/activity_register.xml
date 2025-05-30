@@ -15,50 +15,50 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginBottom="24dp"
-        android:contentDescription="App Logo"
+        android:contentDescription="@string/app_logo"
         android:src="@drawable/logo" />
 
     <!-- First Name input -->
     <EditText
         android:id="@+id/editTextFirstName"
         style="@style/AppEditText"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName" />
 
     <!-- Last Name input -->
     <EditText
         android:id="@+id/editTextLastName"
         style="@style/AppEditText"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName" />
 
     <!-- Date of Birth input -->
     <EditText
         android:id="@+id/editTextDOB"
         style="@style/AppEditText"
-        android:hint="Date of Birth (YYYY-MM-DD)"
+        android:hint="@string/date_of_birth"
         android:inputType="date" />
 
     <!-- Email input -->
     <EditText
         android:id="@+id/editTextEmailRegister"
         style="@style/AppEditText"
-        android:hint="Email"
+        android:hint="@string/email"
         android:layout_marginTop="20px"
-        android:inputType="textEmailAddress" />
+        android:inputType="textPersonName" />
 
     <!-- Password input -->
     <EditText
         android:id="@+id/editTextPasswordRegister"
         style="@style/AppEditText"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <!-- Confirm Password input -->
     <EditText
         android:id="@+id/editTextConfirmPasswordRegister"
         style="@style/AppEditText"
-        android:hint="Confirm Password"
+        android:hint="@string/confirm_password"
         android:inputType="textPassword" />
 
     <!-- Register button -->
@@ -66,7 +66,7 @@
         android:id="@+id/buttonRegister"
         style="@style/AppButton"
         android:layout_marginTop="16dp"
-        android:text="Register" />
+        android:text="@string/register" />
 
     <!-- Already have an account? Login link -->
     <TextView
@@ -77,7 +77,7 @@
         android:layout_marginTop="24dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="Already have an account? Login"
+        android:text="@string/already_have_an_account_login"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 </LinearLayout>
