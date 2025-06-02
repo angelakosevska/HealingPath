@@ -1,16 +1,25 @@
 package com.example.healingpath.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
+
+@Entity(tableName = "users")
 public class User {
+
+    @PrimaryKey
+    @NonNull
+    private String email;
+
     private String firstName;
     private String lastName;
     private String dob;
-    private String email;
 
     public User() {
-        // Default constructor required for Firestore
+        // Required by Firestore and Room
     }
 
-    public User(String firstName, String lastName, String dob, String email) {
+    public User(String firstName, String lastName, String dob, @NonNull String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -42,11 +51,12 @@ public class User {
         this.dob = dob;
     }
 
+    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 }

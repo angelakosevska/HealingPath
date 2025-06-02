@@ -1,11 +1,26 @@
 package com.example.healingpath.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "injuries")
+
+
 public class Injury {
+
+    @PrimaryKey
+    @NonNull
     private String id;
     private String title;
     private String description;
     private long timestamp;
     private String userId;
+
+    @androidx.room.ColumnInfo(name = "is_synced")
+    private boolean isSynced;
+
+
 
     public Injury() {
         // Required empty constructor for Firestore
@@ -17,6 +32,7 @@ public class Injury {
         this.description = description;
         this.timestamp = timestamp;
         this.userId = userId;
+        this.isSynced = false;
     }
 
     // Getters and Setters
@@ -59,6 +75,16 @@ public class Injury {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void setSynced(boolean synced) {
+        isSynced = synced;
+    }
+
+
 }
 
 

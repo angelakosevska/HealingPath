@@ -1,6 +1,10 @@
 package com.example.healingpath.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+@Entity(tableName = "notes")
 public class NoteItem {
+    @PrimaryKey(autoGenerate = true)
     private String note;
     private int pain;
     private long timestamp;

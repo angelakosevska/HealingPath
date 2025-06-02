@@ -48,9 +48,13 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
 
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.recyclerview)
+    implementation(libs.room.common.jvm)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     // Testing

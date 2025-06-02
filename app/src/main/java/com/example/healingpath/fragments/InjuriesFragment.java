@@ -12,12 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingpath.R;
 import com.example.healingpath.adapters.InjuryAdapter;
 import com.example.healingpath.models.Injury;
+import com.example.healingpath.viewmodels.InjuryViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 
 public class InjuriesFragment extends Fragment {
 
-    private FirebaseFirestore db;
+    private InjuryViewModel viewModel;
     private InjuryAdapter adapter;
     private ArrayList<Injury> injuryList;
 
@@ -38,7 +40,6 @@ public class InjuriesFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_injuries, container, false);
 
-        db = FirebaseFirestore.getInstance();
         injuryList = new ArrayList<>();
 
         RecyclerView recyclerView = root.findViewById(R.id.rv_injuries);
@@ -50,7 +51,13 @@ public class InjuriesFragment extends Fragment {
         Button btnAddInjury = root.findViewById(R.id.btn_add_injury);
         btnAddInjury.setOnClickListener(v -> showAddInjuryDialog());
 
-        loadInjuriesFromFirestore();
+
+        viewModel = new ViewModelProvider(this).get(InjuryViewModel.class);
+        viewModel.getAllInjuries().observe(getViewLifecycleOwner(), injuries -> {
+            injuryList.clear();
+            injuryList.addAll(injuries);
+            adapter.notifyDataSetChanged();
+        });
 
         return root;
     }
@@ -88,21 +95,15 @@ public class InjuriesFragment extends Fragment {
             }
 
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            String id = db.collection("users").document(userId).collection("injuries").document().getId();
+            String id = FirebaseFirestore.getInstance()
+                    .collection("users").document(userId)
+                    .collection("injuries").document().getId();
 
             Injury injury = new Injury(id, title, desc, System.currentTimeMillis(), userId);
 
-            db.collection("users")
-                    .document(userId)
-                    .collection("injuries")
-                    .document(id)
-                    .set(injury)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(getContext(), "Injury added", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    })
-                    .addOnFailureListener(e ->
-                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            // Add and dismiss immediately (offline-first)
+            viewModel.addInjury(injury);
+            dialog.dismiss();
         });
 
 
@@ -110,27 +111,26 @@ public class InjuriesFragment extends Fragment {
     }
 
 
-    private void loadInjuriesFromFirestore() {
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        db.collection("users")
-                .document(currentUserId)
-                .collection("injuries")
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    injuryList.clear();
-                    if (snapshots != null) {
-                        for (QueryDocumentSnapshot doc : snapshots) {
-                            Injury injury = doc.toObject(Injury.class);
-                            injuryList.add(injury);
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-    }
-
+//    private void loadInjuriesFromFirestore() {
+//        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//
+//        db.collection("users")
+//                .document(currentUserId)
+//                .collection("injuries")
+//                .addSnapshotListener((snapshots, e) -> {
+//                    if (e != null) {
+//                        Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//
+//                    injuryList.clear();
+//                    if (snapshots != null) {
+//                        for (QueryDocumentSnapshot doc : snapshots) {
+//                            Injury injury = doc.toObject(Injury.class);
+//                            injuryList.add(injury);
+//                        }
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                });
+//    }
 }
