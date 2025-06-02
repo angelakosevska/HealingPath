@@ -1,5 +1,6 @@
 package com.example.healingpath.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,12 +60,21 @@ public class NotesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new NotesAdapter(noteList);
         recyclerView.setAdapter(adapter);
-
+        adapter.setOnNoteLongClickListener((note, position) -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Delete Note")
+                    .setMessage("Are you sure you want to delete this note?")
+                    .setPositiveButton("Yes", (dialog, which) -> deleteNote(note, position))
+                    .setNegativeButton("No", null)
+                    .show();
+        });
         loadNotes();
 
         return view;
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
     private void loadNotes() {
         if (injuryId == null) return;
 
@@ -81,9 +91,26 @@ public class NotesFragment extends Fragment {
                     noteList.clear();
                     for (QueryDocumentSnapshot doc : querySnapshot) {
                         NoteItem note = doc.toObject(NoteItem.class);
+                        note.setId(doc.getId());
                         noteList.add(note);
                     }
                     adapter.notifyDataSetChanged();
+                });
+    }
+    private void deleteNote(NoteItem note, int position) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(userId)
+                .collection("injuries")
+                .document(injuryId)
+                .collection("dailyNotes")
+                .document(note.getId())
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    noteList.remove(position);
+                    adapter.notifyItemRemoved(position);
                 });
     }
 }

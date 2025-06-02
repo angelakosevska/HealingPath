@@ -41,6 +41,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     public NotesAdapter(List<NoteItem> notesList) {
         this.notesList = notesList;
     }
+    public interface OnNoteLongClickListener {
+        void onNoteLongClick(NoteItem note, int position);
+    }
+    private OnNoteLongClickListener longClickListener;
+
+    public void setOnNoteLongClickListener(OnNoteLongClickListener listener) {
+        this.longClickListener = listener;
+    }
 
     @NonNull
     @Override
@@ -74,6 +82,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
         // Apply the background to the layout
         holder.noteLayout.setBackground(background);
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onNoteLongClick(note, holder.getAdapterPosition());
+                return true;
+            }
+            return false;
+        });
+
     }
 
     @Override

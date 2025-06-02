@@ -1,18 +1,23 @@
 package com.example.healingpath.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.healingpath.viewmodels.ReminderViewModel;
+import com.example.healingpath.viewmodels.ReminderViewModelFactory;
+
 
 import com.example.healingpath.R;
 import com.example.healingpath.adapters.ReminderAdapter;
@@ -26,7 +31,7 @@ import java.util.List;
 public class RemindersFragment extends Fragment {
     private static final String ARG_INJURY_ID = "injury_id";
     private String injuryId;
-
+    private ReminderViewModel viewModel;
     private RecyclerView recyclerView;
     private ReminderAdapter adapter;
     private List<ReminderModel> reminderList = new ArrayList<>();
@@ -55,6 +60,7 @@ public class RemindersFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_reminders, container, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recycler_view_reminders);
@@ -62,38 +68,31 @@ public class RemindersFragment extends Fragment {
         adapter = new ReminderAdapter(reminderList);
         recyclerView.setAdapter(adapter);
         adapter.setOnReminderLongClickListener((reminder, position) -> {
-            deleteReminder(reminder, position);
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Delete Reminder")
+                    .setMessage("Are you sure you want to delete this reminder?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        viewModel.deleteReminder(reminder);
+                        Toast.makeText(requireContext(), "Reminder deleted", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
 
-        loadRemindersForInjury(injuryId);
+
+
+        ReminderViewModelFactory factory = new ReminderViewModelFactory(requireActivity().getApplication(), injuryId);
+        viewModel = new ViewModelProvider(this, factory).get(ReminderViewModel.class);
+
+        viewModel.getReminders().observe(getViewLifecycleOwner(), reminders -> {
+            reminderList.clear();
+            reminderList.addAll(reminders);
+            adapter.notifyDataSetChanged();
+        });
+
     }
 
-    private void loadRemindersForInjury(String injuryId) {
-        FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(userId)
-                .collection("injuries")
-                .document(injuryId)
-                .collection("reminders")
-                .get()
-                .addOnSuccessListener(reminderSnapshot -> {
-                    reminderList.clear();
-                    for (com.google.firebase.firestore.DocumentSnapshot doc : reminderSnapshot.getDocuments()) {
-                        Long timestamp = doc.getLong("timestamp");
-                        String note = doc.getString("note");
-                        String reminderId = doc.getId(); // ✅ Firestore doc ID
 
-                        if (timestamp != null && note != null) {
-                            reminderList.add(new ReminderModel(note, timestamp, reminderId));
-                        }
-                    }
-
-                    adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Failed to load reminders", Toast.LENGTH_SHORT).show();
-                });
-    }
     private void deleteReminder(ReminderModel reminder, int position) {
         FirebaseFirestore.getInstance()
                 .collection("users")
