@@ -1,14 +1,11 @@
 package com.example.healingpath.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 
-@Entity(tableName = "users")
+
 public class User {
 
-    @PrimaryKey
-    @NonNull
+
     private String email;
 
     private String firstName;

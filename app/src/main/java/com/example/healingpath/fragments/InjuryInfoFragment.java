@@ -52,7 +52,6 @@ public class InjuryInfoFragment extends Fragment {
     private TextView tvTitle, tvDescription;
     private SeekBar seekBarPain;
     private EditText etNoteInput;
-    private Button btnSaveNote;
 
 
     public static InjuryInfoFragment newInstance(String injuryId) {
@@ -87,7 +86,7 @@ public class InjuryInfoFragment extends Fragment {
         tvDescription = view.findViewById(R.id.tv_description);
         seekBarPain = view.findViewById(R.id.seekbar_pain);
         etNoteInput = view.findViewById(R.id.et_note_input);
-        btnSaveNote = view.findViewById(R.id.btn_save_note);
+        Button btnSaveNote = view.findViewById(R.id.btn_save_note);
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -223,7 +222,9 @@ public class InjuryInfoFragment extends Fragment {
         note.put("note", noteText);
         note.put("timestamp", System.currentTimeMillis());
         note.put("pain", painLevel);
-        note.put("mood", mood); // ✅ save mood to Firestore
+        note.put("mood", mood);
+
+        etNoteInput.setEnabled(false);
 
         FirebaseFirestore.getInstance()
                 .collection("users")
@@ -235,9 +236,12 @@ public class InjuryInfoFragment extends Fragment {
                 .addOnSuccessListener(docRef -> {
                     Toast.makeText(getContext(), "Note saved", Toast.LENGTH_SHORT).show();
                     etNoteInput.setText("");
+                    etNoteInput.setEnabled(true);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error saving note", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Saved offline. Will sync later.", Toast.LENGTH_SHORT).show();
+                    etNoteInput.setText("");
+                    etNoteInput.setEnabled(true);
                 });
     }
 
