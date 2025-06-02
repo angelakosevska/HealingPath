@@ -28,6 +28,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.healingpath.R;
 import com.example.healingpath.ReminderReceiver;
+import com.example.healingpath.models.ReminderModel;
+import com.example.healingpath.repositories.ReminderRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,14 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.app.Activity;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class InjuryInfoFragment extends Fragment {
     private static final String ARG_INJURY_ID = "injury_id";
@@ -53,6 +48,7 @@ public class InjuryInfoFragment extends Fragment {
     private SeekBar seekBarPain;
     private EditText etNoteInput;
 
+    private ReminderRepository reminderRepository;
 
     public static InjuryInfoFragment newInstance(String injuryId) {
         InjuryInfoFragment fragment = new InjuryInfoFragment();
@@ -68,6 +64,7 @@ public class InjuryInfoFragment extends Fragment {
         if (getArguments() != null) {
             injuryId = getArguments().getString(ARG_INJURY_ID);
         }
+        reminderRepository = new ReminderRepository(requireContext(), injuryId);
     }
 
     @Nullable
@@ -155,23 +152,20 @@ public class InjuryInfoFragment extends Fragment {
                     reminder.put("type", "Custom"); // or use other values later
                     reminder.put("note", note.isEmpty() ? "No note" : note);
 
-                    FirebaseFirestore.getInstance()
-                            .collection("users")
-                            .document(userId)
-                            .collection("injuries")
-                            .document(injuryId)
-                            .collection("reminders")
-                            .add(reminder)
-                            .addOnSuccessListener(documentReference -> {
-                                String reminderId = documentReference.getId();
-                                scheduleReminder(date.getTimeInMillis(), note, reminderId);
-                                Toast.makeText(getContext(), "Reminder saved and scheduled!", Toast.LENGTH_SHORT).show();
-                            })
+                    String reminderId = FirebaseFirestore.getInstance()
+                            .collection("tmp") // just to get a random Firestore-like ID
+                            .document().getId();
+
+                    ReminderModel reminderModel = new ReminderModel(note, date.getTimeInMillis(), reminderId);
 
 
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(getContext(), "Error saving reminder.", Toast.LENGTH_SHORT).show();
-                            });
+                    reminderRepository.insert(reminderModel);
+
+
+                    scheduleReminder(date.getTimeInMillis(), note, reminderId);
+
+                    Toast.makeText(getContext(), "Reminder saved and scheduled!", Toast.LENGTH_SHORT).show();
+
                 });
 
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
