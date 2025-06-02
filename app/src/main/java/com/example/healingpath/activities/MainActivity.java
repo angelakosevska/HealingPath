@@ -1,6 +1,7 @@
 package com.example.healingpath.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.example.healingpath.R;
 import com.example.healingpath.fragments.CalendarFragment;
 import com.example.healingpath.fragments.InjuriesFragment;
 import com.example.healingpath.fragments.ProfileFragment;
+import com.example.healingpath.utils.LocaleHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -73,5 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             };
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.applySavedLocale(base));
+    }
 
 }

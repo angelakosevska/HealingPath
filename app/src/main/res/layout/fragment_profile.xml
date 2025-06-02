@@ -1,70 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:padding="24dp">
 
-    <!-- Header row: Full name + Edit button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingBottom="16dp">
+        android:orientation="vertical">
+
+        <!-- Header row: Full name + Edit button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/textViewFullName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/name"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/buttonEditProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_profile"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <!-- Profile Details -->
+        <TextView
+            android:id="@+id/textViewDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/date_of_birth"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textViewFullName"
-            android:layout_width="0dp"
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/name"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/email"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="18sp" />
 
-        <ImageButton
-            android:id="@+id/buttonEditProfile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Edit Profile"
-            android:src="@android:drawable/ic_menu_edit"
-            app:tint="@color/colorPrimaryDark" />
+        <!-- Language Switch Section -->
+        <TextView
+            android:id="@+id/textChooseLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_language"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextSecondary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/languageSwitchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity=""
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
+
+            <Switch
+                android:id="@+id/switchLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:thumbTint="@color/colorAccent"
+                android:trackTint="@color/colorAccent"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:id="@+id/textMacedonian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Македонски"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/buttonLogout"
+            style="@style/AppButton"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/logout" />
     </LinearLayout>
-
-    <!-- Divider -->
-
-    <!-- Date of Birth Label and Value -->
-    <TextView
-        android:id="@+id/textViewDOB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/date_of_birth"
-        android:textSize="18sp"
-        android:textColor="@color/colorTextSecondary"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Email Label and Value -->
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textSize="18sp"
-        android:textColor="@color/colorTextSecondary"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Logout Button -->
-    <Button
-        android:id="@+id/buttonLogout"
-        style="@style/AppButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/logout" />
-
-</LinearLayout>
+</ScrollView>

@@ -1,23 +1,31 @@
 package com.example.healingpath.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Typeface;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.healingpath.R;
 import com.example.healingpath.activities.LoginActivity;
+import com.example.healingpath.utils.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +54,37 @@ public class ProfileFragment extends Fragment {
         textViewFullName = view.findViewById(R.id.textViewFullName);
         textViewDOB = view.findViewById(R.id.textViewDOB);
         textViewEmail = view.findViewById(R.id.textViewEmail);
+        TextView textEnglish = view.findViewById(R.id.textEnglish);
+        TextView textMacedonian = view.findViewById(R.id.textMacedonian);
+
+// Get references
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchLanguage = view.findViewById(R.id.switchLanguage);
+
+// Load saved language
+        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String currentLang = prefs.getString("app_language", "en");
+
+// Set switch based on current language
+        switchLanguage.setChecked(currentLang.equals("mk"));
+        updateLanguageColors(switchLanguage.isChecked(), textEnglish, textMacedonian);
+
+// Switch listener
+        switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String selectedLanguage = isChecked ? "mk" : "en";
+
+            if (!selectedLanguage.equals(currentLang)) {
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("app_language", selectedLanguage);
+                editor.apply();
+                LocaleHelper.setLocale(requireContext(), selectedLanguage);
+                requireActivity().recreate();
+            }
+            updateLanguageColors(isChecked, textEnglish, textMacedonian);
+        });
+
+
+
 
         Button logoutButton = view.findViewById(R.id.buttonLogout);
         ImageButton editButton = view.findViewById(R.id.buttonEditProfile);
@@ -65,6 +104,20 @@ public class ProfileFragment extends Fragment {
 
         loadUserProfile();
     }
+
+    private void updateLanguageColors(boolean isMacedonianSelected, TextView english, TextView macedonian) {
+        int selectedColor = ContextCompat.getColor(requireContext(), R.color.colorAccent);
+        int defaultColor = ContextCompat.getColor(requireContext(), android.R.color.darker_gray);
+
+        // Update colors
+        english.setTextColor(isMacedonianSelected ? defaultColor : selectedColor);
+        macedonian.setTextColor(isMacedonianSelected ? selectedColor : defaultColor);
+
+        // Update font weight
+        english.setTypeface(null, isMacedonianSelected ? Typeface.NORMAL : Typeface.BOLD);
+        macedonian.setTypeface(null, isMacedonianSelected ? Typeface.BOLD : Typeface.NORMAL);
+    }
+
 
     private void loadUserProfile() {
         FirebaseUser currentUser = mAuth.getCurrentUser();

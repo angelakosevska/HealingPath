@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Патот на заздравување</string>
-
+    <!--    <string name="email_login">Email</string>-->
+    <!--    <string name="password_login">Password</string>-->
+    <string name="btn_login">Логирај се</string>
+    <string name="or">или</string>
+    <string name="login_as_guest">Продолжи анонимно</string>
+    <string name="login_with_google">Логирај се со Google</string>
+    <string name="login_with_facebook">Логирај се со Facebook</string>
+    <string name="don_t_have_an_account_register">Немаш профил? Регистрирај се!</string>
+    <string name="app_logo">App Logo</string>
+    <string name="first_name">Име</string>
+    <string name="last_name">Презиме</string>
+    <string name="date_of_birth">Дата на раѓање</string>
+    <string name="email">Е-маил</string>
+    <string name="password">Лозинка</string>
+    <string name="confirm_password">Потврди лозинка</string>
+    <string name="register">Регистрирај се</string>
+    <string name="already_have_an_account_login">Имаш профил? Логирај се</string>
+    <string name="add_injury">Додај повреда</string>
+    <string name="title">Наслов</string>
+    <string name="description">Опис</string>
+    <string name="cancel">Откажи</string>
+    <string name="save">Зачувај</string>
+    <string name="your_injuries">Твои повреди</string>
+    <string name="notes">Белешки</string>
+    <string name="reminders">Потсетници</string>
+    <string name="log">Внеси</string>
+    <string name="pain_level">Степен на болка</string>
+    <string name="set_reminder">Додај потсетник</string>
+    <string name="name">Целосно име</string>
+    <string name="logout">Одјави се</string>
+    <string name="date">Датум</string>
+    <string name="note_content">Содржина на белешка</string>
+    <string name="mood">Расположение</string>
+    <string name="time">Време</string>
     <string-array name="mood_options">
         <item>🙂 Неутрално</item>
         <item>😊 Среќен/Среќна</item>
