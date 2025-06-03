@@ -37,6 +37,8 @@
     <string name="choose_language">Choose your language</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="forgot_password">"Forgot password? "</string>
+    <string name="default_web_client_id">739562432257-kh0c2oafp28ld8khd53ojk6kchguifvl.apps.googleusercontent.com</string>
+
 
 
     <string-array name="mood_options">

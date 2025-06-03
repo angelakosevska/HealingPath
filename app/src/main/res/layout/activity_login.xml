@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/white"
     tools:context=".activities.LoginActivity">
 
     <!-- Logo at the top -->
@@ -22,8 +22,8 @@
     <EditText
         android:id="@+id/editTextEmail"
         style="@style/AppEditText"
-        android:hint="@string/email"
         android:layout_marginBottom="8dp"
+        android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <!-- Password input -->
@@ -38,13 +38,13 @@
         android:id="@+id/textViewForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/forgot_password"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
-        android:clickable="true"
-        android:focusable="true"/>
+        android:textSize="14sp" />
 
     <!-- Login button -->
     <Button
@@ -78,6 +78,14 @@
         android:layout_marginTop="16dp"
         android:text="@string/login_with_google" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/buttonGoogleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
+
+
     <Button
         android:id="@+id/buttonLoginWithFacebook"
         style="@style/AppButton"
@@ -94,6 +102,12 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/don_t_have_an_account_register"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp" />
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </LinearLayout>

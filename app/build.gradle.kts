@@ -43,24 +43,28 @@ dependencies {
     implementation(libs.room.common.jvm)
 
 
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-
+    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
 
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-analytics")
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.1")
+    annotationProcessor("androidx.room:room-compiler:2.7.1")
 
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-    implementation("com.google.firebase:firebase-auth:22.1.1")
-    implementation("com.google.android.gms:play-services-auth:20.6.0")
-    implementation("com.facebook.android:facebook-android-sdk:[8,9)")
+    implementation("com.google.firebase:firebase-auth:23.2.1")
 
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation("com.facebook.android:facebook-android-sdk:18.0.3")
+
+    implementation("androidx.credentials:credentials:1.2.0-alpha03")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

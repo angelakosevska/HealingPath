@@ -56,7 +56,6 @@ public class InjuryRepository {
         executor.execute(() -> injuryDao.insert(injury));
     }
 
-    // Sync Firestore -> Room
     public void syncFromFirestore() {
         firestore.collection("users")
                 .document(userId)
@@ -71,11 +70,9 @@ public class InjuryRepository {
                 });
     }
 
-    // Add injury to Firestore and Room
     public void addInjury(Injury injury) {
-        insertLocal(injury); // Insert immediately into Room for offline support
+        insertLocal(injury);
 
-        // Try syncing with Firestore
         firestore.collection("users")
                 .document(userId)
                 .collection("injuries")

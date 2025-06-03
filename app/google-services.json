@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "739562432257-kh0c2oafp28ld8khd53ojk6kchguifvl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.healingpath",
+            "certificate_hash": "f4ffa81f04b9dc7cc242b8e03370783f8651bd1b"
+          }
+        },
+        {
           "client_id": "739562432257-e9lr4oomsjsp1rrrau3opvqm7b0ud1d1.apps.googleusercontent.com",
           "client_type": 3
         }
