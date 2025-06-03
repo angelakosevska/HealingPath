@@ -78,13 +78,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/login_with_google" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/buttonGoogleSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp" />
-
 
     <Button
         android:id="@+id/buttonLoginWithFacebook"
@@ -104,10 +97,5 @@
         android:text="@string/don_t_have_an_account_register"
         android:textColor="@color/colorPrimaryDark"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+
 </LinearLayout>
