@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +21,7 @@ import com.example.healingpath.utils.LocaleHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.installations.FirebaseInstallations;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(this);  // Ensure Firebase is initialized
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
@@ -51,7 +53,25 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, new InjuriesFragment())
                     .commit();
         }
+
+        FirebaseInstallations.getInstance().
+
+                getId()
+                        .
+
+                addOnCompleteListener(task ->
+
+                {
+                    if (task.isSuccessful()) {
+                        String fid = task.getResult();
+                        Log.d("FirebaseInstallID", "FID: " + fid);
+                    } else {
+                        Log.e("FirebaseInstallID", "Failed to get FID", task.getException());
+                    }
+                });
+
     }
+
 
     private final NavigationBarView.OnItemSelectedListener navListener =
             item -> {
@@ -76,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             };
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.applySavedLocale(base));

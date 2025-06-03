@@ -20,6 +20,7 @@ import com.example.healingpath.R;
 import com.example.healingpath.adapters.InjuryAdapter;
 import com.example.healingpath.models.Injury;
 import com.example.healingpath.viewmodels.InjuryViewModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -86,6 +87,13 @@ public class InjuriesFragment extends Fragment {
                 .setPositiveButton("Delete", (dialog, which) -> deleteInjury(injury))
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(requireContext());
+        analytics.logEvent("opened_injuries_fragment", null);
     }
     private void showAddInjuryDialog() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_injury, null);

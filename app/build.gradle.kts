@@ -73,6 +73,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-messaging:24.0.0")
+    implementation ("com.google.firebase:firebase-inappmessaging-display:20.3.1")
 
     implementation("androidx.room:room-runtime:2.7.1")
     annotationProcessor("androidx.room:room-compiler:2.7.1")
