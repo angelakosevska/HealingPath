@@ -28,11 +28,19 @@ public class InjuryAdapter extends RecyclerView.Adapter<InjuryAdapter.InjuryView
     public interface OnInjuryClickListener {
         void onInjuryClick(Injury injury);
     }
+    public interface OnInjuryLongClickListener {
+        void onInjuryLongClick(Injury injury);
+    }
 
-    public InjuryAdapter(Context context, ArrayList<Injury> injuryList, OnInjuryClickListener listener) {
+    private final OnInjuryLongClickListener longClickListener;
+
+    public InjuryAdapter(Context context, ArrayList<Injury> injuryList,
+                         OnInjuryClickListener listener,
+                         OnInjuryLongClickListener longClickListener) {
         this.context = context;
         this.injuryList = injuryList;
         this.listener = listener;
+        this.longClickListener = longClickListener;
     }
 
     @NonNull
@@ -53,6 +61,13 @@ public class InjuryAdapter extends RecyclerView.Adapter<InjuryAdapter.InjuryView
             if (listener != null) {
                 listener.onInjuryClick(injury);
             }
+        });
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onInjuryLongClick(injury);
+                return true;
+            }
+            return false;
         });
     }
 

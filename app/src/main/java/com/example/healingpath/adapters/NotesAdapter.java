@@ -68,19 +68,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         String moodEmoji = note.getMood() != null ? note.getMood() : "😐";
         holder.mood.setText("Mood: " + moodEmoji);
 
-        // Get pain level (ensure it's between 1 and 10)
         int pain = note.getPain();
         int index = Math.max(0, Math.min(9, pain - 1));
 
-        // Get array of 10 colors
         int[] painColors = getPainColors(holder.itemView.getContext());
 
-        // Create a drawable with the selected color and rounded corners
         GradientDrawable background = new GradientDrawable();
         background.setColor(painColors[index]);
-        background.setCornerRadius(24f); // You can change the radius
+        background.setCornerRadius(24f);
 
-        // Apply the background to the layout
         holder.noteLayout.setBackground(background);
         holder.itemView.setOnLongClickListener(v -> {
             if (longClickListener != null) {

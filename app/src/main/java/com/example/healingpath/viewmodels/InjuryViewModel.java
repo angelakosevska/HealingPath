@@ -31,4 +31,9 @@ public class InjuryViewModel extends AndroidViewModel {
     public void addInjury(Injury injury) {
         repository.addInjury(injury); // adds to Firestore + Room
     }
+    public void deleteInjury(Injury injury) {
+        repository.deleteInjury(injury);
+    }
+
+
 }

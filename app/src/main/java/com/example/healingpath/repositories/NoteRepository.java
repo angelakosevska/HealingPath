@@ -75,10 +75,15 @@ public class NoteRepository {
                     .document(note.getId())
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+                                Toast.makeText(context, "Note deleted successfully!", Toast.LENGTH_SHORT).show()
+                        );
                     })
                     .addOnFailureListener(e -> {
-
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+                                Toast.makeText(context, "Failed to delete note. Will retry later.", Toast.LENGTH_SHORT).show()
+                        );
+                        e.printStackTrace();
                     });
         });
     }

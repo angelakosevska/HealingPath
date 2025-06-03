@@ -45,7 +45,12 @@ public class InjuriesFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.rv_injuries);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new InjuryAdapter(getContext(), injuryList, this::openInjuryDetailFragment);
+        adapter = new InjuryAdapter(
+                getContext(),
+                injuryList,
+                this::openInjuryDetailFragment,
+                this::confirmDeleteInjury
+        );
         recyclerView.setAdapter(adapter);
 
         Button btnAddInjury = root.findViewById(R.id.btn_add_injury);
@@ -61,6 +66,9 @@ public class InjuriesFragment extends Fragment {
 
         return root;
     }
+    private void deleteInjury(Injury injury) {
+        viewModel.deleteInjury(injury); // Assuming your ViewModel handles Firestore removal
+    }
 
     private void openInjuryDetailFragment(Injury injury) {
         InjuryDetailsFragment fragment = InjuryDetailsFragment.newInstance(injury.getId());
@@ -71,7 +79,14 @@ public class InjuriesFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
-
+    private void confirmDeleteInjury(Injury injury) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Delete Injury")
+                .setMessage("Are you sure you want to delete this injury?")
+                .setPositiveButton("Delete", (dialog, which) -> deleteInjury(injury))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
     private void showAddInjuryDialog() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_injury, null);
         EditText titleInput = view.findViewById(R.id.et_title);

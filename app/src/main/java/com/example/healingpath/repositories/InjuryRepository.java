@@ -94,5 +94,28 @@ public class InjuryRepository {
                     );
                 });
     }
+    public void deleteInjury(Injury injury) {
+        executor.execute(() -> {
+
+            injuryDao.delete(injury);
+
+            firestore.collection("users")
+                    .document(userId)
+                    .collection("injuries")
+                    .document(injury.getId())
+                    .delete()
+                    .addOnSuccessListener(aVoid -> {
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+                                Toast.makeText(context, "Injury deleted successfully!", Toast.LENGTH_SHORT).show()
+                        );
+                    })
+                    .addOnFailureListener(e -> {
+                        new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+                                Toast.makeText(context, "Failed to delete injury. Will retry later.", Toast.LENGTH_SHORT).show()
+                        );
+                        e.printStackTrace();
+                    });
+        });
+    }
 
 }
