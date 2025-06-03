@@ -32,5 +32,7 @@ public interface InjuryDao {
     LiveData<Injury> getInjuryById(String injuryId);
     @Query("SELECT * FROM injuries WHERE is_synced = 0")
     List<Injury> getUnsyncedInjuries();
+    @Query("SELECT * FROM injuries WHERE userId = :userId ORDER BY timestamp DESC")
+    LiveData<List<Injury>> getInjuriesForUser(String userId);
 
 }

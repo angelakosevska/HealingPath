@@ -48,7 +48,7 @@ public class InjuryRepository {
 
     // Get all injuries (LiveData from Room)
     public LiveData<List<Injury>> getAllInjuries() {
-        return injuryDao.getAllInjuries();
+        return injuryDao.getInjuriesForUser(userId);
     }
 
     // Insert injury into local Room DB

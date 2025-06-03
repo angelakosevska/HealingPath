@@ -57,18 +57,15 @@ public class ProfileFragment extends Fragment {
         TextView textEnglish = view.findViewById(R.id.textEnglish);
         TextView textMacedonian = view.findViewById(R.id.textMacedonian);
 
-// Get references
+
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchLanguage = view.findViewById(R.id.switchLanguage);
 
-// Load saved language
         SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
         String currentLang = prefs.getString("app_language", "en");
 
-// Set switch based on current language
         switchLanguage.setChecked(currentLang.equals("mk"));
         updateLanguageColors(switchLanguage.isChecked(), textEnglish, textMacedonian);
 
-// Switch listener
         switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
             String selectedLanguage = isChecked ? "mk" : "en";
 
@@ -82,9 +79,6 @@ public class ProfileFragment extends Fragment {
             }
             updateLanguageColors(isChecked, textEnglish, textMacedonian);
         });
-
-
-
 
         Button logoutButton = view.findViewById(R.id.buttonLogout);
         ImageButton editButton = view.findViewById(R.id.buttonEditProfile);
@@ -101,8 +95,23 @@ public class ProfileFragment extends Fragment {
                     }
                 }
         );
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            // Guest user UI adjustments
+            textViewFullName.setText("Guest");
+            textViewDOB.setVisibility(View.GONE);
+            textViewEmail.setVisibility(View.GONE);
+            editButton.setVisibility(View.GONE);
+            logoutButton.setText("Exit Guest Mode");
+        } else {
+            // Regular user: load profile data
+            loadUserProfile();
 
-        loadUserProfile();
+            textViewDOB.setVisibility(View.VISIBLE);
+            textViewEmail.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.VISIBLE);
+            logoutButton.setText(getString(R.string.logout));
+        }
     }
 
     private void updateLanguageColors(boolean isMacedonianSelected, TextView english, TextView macedonian) {

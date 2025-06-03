@@ -45,15 +45,15 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewRegister = findViewById(R.id.textViewRegister); // "Don't have an account? Register"
-
-        // Set OnClickListener for the Login button
+        Button buttonLoginAsGuest = findViewById(R.id.buttonLoginAsGuest);
+        buttonLoginAsGuest.setOnClickListener(v -> signInAnonymously());
         buttonLogin.setOnClickListener(v -> loginUser());
 
-        // Set clickable behavior for "Register" link
-        String text = "Don't have an account? Register";  // The full sentence
+
+        String text = "Don't have an account? Register";
         SpannableString spannableString = new SpannableString(text);
 
-        // Find the starting and ending index of the word "Register"
+
         int start = text.indexOf("Register");
         int end = start + "Register".length();
 
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                // When the user clicks on "Register", navigate to RegisterActivity
+
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -72,9 +72,21 @@ public class LoginActivity extends AppCompatActivity {
 
 
         textViewRegister.setText(spannableString);
-        textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());  // Make it clickable
+        textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
+    //GUEST LOGIN/SIGNIN
+    private void signInAnonymously () {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Signed in as Guest", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Guest login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -89,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+
+
         // Attempt login with Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -101,5 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+
     }
 }
