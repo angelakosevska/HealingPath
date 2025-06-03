@@ -17,6 +17,7 @@
     <string name="password">Лозинка</string>
     <string name="confirm_password">Потврди лозинка</string>
     <string name="register">Регистрирај се</string>
+    <string name="forgot_password">Заборавена лозинка?</string>
     <string name="already_have_an_account_login">Имаш профил? Логирај се</string>
     <string name="add_injury">Додај повреда</string>
     <string name="title">Наслов</string>

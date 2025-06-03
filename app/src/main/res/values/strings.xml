@@ -36,6 +36,7 @@
     <string name="time">Time</string>
     <string name="choose_language">Choose your language</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="forgot_password">"Forgot password? "</string>
 
 
     <string-array name="mood_options">

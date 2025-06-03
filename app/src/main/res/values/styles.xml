@@ -15,7 +15,7 @@
         <item name="android:textColorSecondary">@color/colorTextSecondary</item>
     </style>
 
-    <!-- Consistent Button Style with 8dp corner radius -->
+    <!-- Consistent Button Style with 16dp corner radius -->
     <style name="AppButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -38,10 +38,13 @@
     <style name="AppEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/edit_text_background</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@color/colorTextSecondary</item>
         <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+
+
     </style>
     <!-- Consistent TextView Style -->
     <style name="AppTextView">
@@ -50,7 +53,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@color/colorTextSecondary</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:textStyle">normal</item>
     </style>
 

@@ -23,6 +23,7 @@
         android:id="@+id/editTextEmail"
         style="@style/AppEditText"
         android:hint="@string/email"
+        android:layout_marginBottom="8dp"
         android:inputType="textEmailAddress" />
 
     <!-- Password input -->
@@ -31,6 +32,19 @@
         style="@style/AppEditText"
         android:hint="@string/password"
         android:inputType="textPassword" />
+
+    <!-- Forgot Password  -->
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="end"
+        android:text="@string/forgot_password"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <!-- Login button -->
     <Button

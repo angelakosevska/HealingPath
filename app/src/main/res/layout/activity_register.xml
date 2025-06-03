@@ -16,28 +16,34 @@
         android:layout_height="120dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="@string/app_logo"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logotransp" />
 
     <!-- First Name input -->
     <EditText
         android:id="@+id/editTextFirstName"
         style="@style/AppEditText"
         android:hint="@string/first_name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Last Name input -->
     <EditText
         android:id="@+id/editTextLastName"
         style="@style/AppEditText"
         android:hint="@string/last_name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Date of Birth input -->
     <EditText
         android:id="@+id/editTextDOB"
         style="@style/AppEditText"
         android:hint="@string/date_of_birth"
-        android:inputType="date" />
+        android:inputType="date"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Email input -->
     <EditText
@@ -45,21 +51,27 @@
         style="@style/AppEditText"
         android:hint="@string/email"
         android:layout_marginTop="20px"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Password input -->
     <EditText
         android:id="@+id/editTextPasswordRegister"
         style="@style/AppEditText"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Confirm Password input -->
     <EditText
         android:id="@+id/editTextConfirmPasswordRegister"
         style="@style/AppEditText"
         android:hint="@string/confirm_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_marginBottom="4dp"
+        />
 
     <!-- Register button -->
     <Button
