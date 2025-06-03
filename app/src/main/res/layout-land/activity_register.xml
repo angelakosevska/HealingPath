@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Logo at the top -->
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/app_logo"
+            android:src="@drawable/logotransp" />
+
+        <!-- First Name input -->
+        <EditText
+            android:id="@+id/editTextFirstName"
+            style="@style/AppEditText"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Last Name input -->
+        <EditText
+            android:id="@+id/editTextLastName"
+            style="@style/AppEditText"
+            android:hint="@string/last_name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Date of Birth input -->
+        <EditText
+            android:id="@+id/editTextDOB"
+            style="@style/AppEditText"
+            android:hint="@string/date_of_birth"
+            android:inputType="date"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Email input -->
+        <EditText
+            android:id="@+id/editTextEmailRegister"
+            style="@style/AppEditText"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Password input -->
+        <EditText
+            android:id="@+id/editTextPasswordRegister"
+            style="@style/AppEditText"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Confirm Password input -->
+        <EditText
+            android:id="@+id/editTextConfirmPasswordRegister"
+            style="@style/AppEditText"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Register button -->
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/AppButton"
+            android:layout_marginTop="16dp"
+            android:text="@string/register" />
+
+        <!-- Already have an account? Login link -->
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/already_have_an_account_login"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+    </LinearLayout>
+</ScrollView>
