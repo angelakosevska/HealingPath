@@ -26,6 +26,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.healingpath.R;
 import com.example.healingpath.activities.LoginActivity;
 import com.example.healingpath.utils.LocaleHelper;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -169,13 +172,31 @@ public class ProfileFragment extends Fragment {
                 .setTitle("Log Out")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", (dialog, which) -> {
+
+                    // Step 1: Sign out from Firebase
                     mAuth.signOut();
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+
+                    // Step 2: Sign out and revoke Google account access
+                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(getString(R.string.default_web_client_id)) // Make sure this matches the one in google-services.json
+                            .requestEmail()
+                            .build();
+
+                    GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+
+                    // This ensures Smart Lock doesn't automatically sign in again
+                    googleSignInClient.revokeAccess().addOnCompleteListener(task -> {
+                        googleSignInClient.signOut().addOnCompleteListener(task2 -> {
+                            // Then go to Login screen
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        });
+                    });
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
 
 }
