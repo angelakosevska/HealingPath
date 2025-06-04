@@ -12,6 +12,9 @@
     <color name="colorTextPrimary">#000000</color>
     <color name="colorTextSecondary">#757575</color>
 
+    <color name="registerTextColor">#2196A3</color>
+
+
     <!-- Semantic Colors -->
     <color name="colorError">#ff6759</color>
     <color name="colorWarning">#ffee59</color>

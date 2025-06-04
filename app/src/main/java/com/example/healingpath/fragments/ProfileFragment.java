@@ -73,15 +73,18 @@ public class ProfileFragment extends Fragment {
             String selectedLanguage = isChecked ? "mk" : "en";
 
             if (!selectedLanguage.equals(currentLang)) {
-
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("app_language", selectedLanguage);
                 editor.apply();
-                LocaleHelper.setLocale(requireContext(), selectedLanguage);
+
+
                 requireActivity().recreate();
             }
+
             updateLanguageColors(isChecked, textEnglish, textMacedonian);
         });
+
+
 
         Button logoutButton = view.findViewById(R.id.buttonLogout);
         ImageButton editButton = view.findViewById(R.id.buttonEditProfile);

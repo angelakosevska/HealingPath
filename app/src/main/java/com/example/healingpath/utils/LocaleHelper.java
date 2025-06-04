@@ -21,16 +21,20 @@ public class LocaleHelper {
 
     // Call this when user changes language
 
-    public static void setLocale(Context context, String languageCode) {
+    public static Context setLocale(Context context, String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
 
-        Configuration config = new Configuration();
+        SharedPreferences prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        prefs.edit().putString("app_language", languageCode).apply();
+
+        Configuration config = new Configuration(context.getResources().getConfiguration());
         config.setLocale(locale);
 
-        context.getApplicationContext().getResources()
-                .updateConfiguration(config, context.getResources().getDisplayMetrics());
+        return context.createConfigurationContext(config);
     }
+
+
 
 
     // Call this to get a context with the right locale

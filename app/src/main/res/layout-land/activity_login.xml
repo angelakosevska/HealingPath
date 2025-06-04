@@ -87,6 +87,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="@string/or"
+                android:layout_gravity="center"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 android:textStyle="bold" />

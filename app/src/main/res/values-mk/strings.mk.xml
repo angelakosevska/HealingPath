@@ -9,6 +9,8 @@
     <string name="login_with_google">Логирај се со Google</string>
     <string name="login_with_facebook">Логирај се со Facebook</string>
     <string name="don_t_have_an_account_register">Немаш профил? Регистрирај се!</string>
+    <string name="register_prompt">Немаш профил? Регистрирај се!</string>
+    <string name="register_text">Регистрирај се!</string>
     <string name="app_logo">App Logo</string>
     <string name="first_name">Име</string>
     <string name="last_name">Презиме</string>

@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">HealingPath</string>
-    <!--    <string name="email_login">Email</string>-->
-    <!--    <string name="password_login">Password</string>-->
     <string name="btn_login">Login</string>
     <string name="or">OR</string>
     <string name="login_as_guest">Login as Guest</string>
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+    <string name="register_prompt">Don\'t have an account? <b>Register</b></string>
+    <string name="register_text">Register</string>
     <string name="app_logo">App Logo</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -38,7 +38,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="forgot_password">"Forgot password? "</string>
     <string name="default_web_client_id">739562432257-kh0c2oafp28ld8khd53ojk6kchguifvl.apps.googleusercontent.com</string>
-
 
 
     <string-array name="mood_options">

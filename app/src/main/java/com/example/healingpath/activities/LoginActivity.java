@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.healingpath.R;
 import com.example.healingpath.models.User;
@@ -31,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText editTextEmail, editTextPassword;
     private Button buttonLogin;
@@ -64,21 +65,31 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.buttonLoginAsGuest).setOnClickListener(v -> signInAnonymously());
         findViewById(R.id.buttonLoginWithGoogle).setOnClickListener(v -> signInWithGoogle());
 
-        // Register link with clickable span
-        String text = "Don't have an account? Register";
+        // Set up the clickable and colored "Register" text
+        String text = getString(R.string.register_prompt).replaceAll("<b>", "").replaceAll("</b>", "");
+        String clickableText = getString(R.string.register_text);
+
         SpannableString spannableString = new SpannableString(text);
-        int start = text.indexOf("Register");
-        int end = start + "Register".length();
+
+        int start = text.indexOf(clickableText);
+        int end = start + clickableText.length();
+
+// Make "Register" clickable
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        int registerColor = getResources().getColor(R.color.colorPrimaryLight);
+
+// Apply custom color from colors.xml
+        int registerColor = ContextCompat.getColor(this, R.color.colorPrimaryLight);
         spannableString.setSpan(new ForegroundColorSpan(registerColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// Set the styled text on the TextView
         textViewRegister.setText(spannableString);
         textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         // Google Sign-In Options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

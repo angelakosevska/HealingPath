@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private EditText editTextFirstName, editTextLastName, editTextDOB, editTextEmailRegister, editTextPasswordRegister, editTextConfirmPasswordRegister;
     private Button buttonRegister;

@@ -24,13 +24,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.installations.FirebaseInstallations;
 
 
-public class MainActivity extends AppCompatActivity {
-    // top and the bottom things
+public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocaleHelper.applySavedLocale(this);
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -54,14 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        FirebaseInstallations.getInstance().
-
-                getId()
-                        .
-
-                addOnCompleteListener(task ->
-
-                {
+        FirebaseInstallations.getInstance()
+                .getId()
+                .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String fid = task.getResult();
                         Log.d("FirebaseInstallID", "FID: " + fid);
@@ -71,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-
 
     private final NavigationBarView.OnItemSelectedListener navListener =
             item -> {
