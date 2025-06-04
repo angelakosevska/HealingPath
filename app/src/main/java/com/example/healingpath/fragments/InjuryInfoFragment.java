@@ -30,6 +30,7 @@ import com.example.healingpath.R;
 import com.example.healingpath.ReminderReceiver;
 import com.example.healingpath.models.ReminderModel;
 import com.example.healingpath.repositories.ReminderRepository;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,6 +50,7 @@ public class InjuryInfoFragment extends Fragment {
     private EditText etNoteInput;
 
     private ReminderRepository reminderRepository;
+    private FirebaseAnalytics firebaseAnalytics;
 
     public static InjuryInfoFragment newInstance(String injuryId) {
         InjuryInfoFragment fragment = new InjuryInfoFragment();
@@ -61,6 +63,7 @@ public class InjuryInfoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
         if (getArguments() != null) {
             injuryId = getArguments().getString(ARG_INJURY_ID);
         }
@@ -88,10 +91,10 @@ public class InjuryInfoFragment extends Fragment {
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
-                // Ask the user to allow exact alarms
+
                 Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                startActivity(intent); // or startActivityForResult if needed
-                return; // Don't proceed until user accepts
+                startActivity(intent);
+                return;
             }
         }
 
@@ -115,7 +118,7 @@ public class InjuryInfoFragment extends Fragment {
                 R.array.mood_options,
                 R.layout.item_spinner
         );
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown); // custom dropdown
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         spinnerMood.setAdapter(adapter);
 
         spinnerMood.setAdapter(adapter);
@@ -136,7 +139,7 @@ public class InjuryInfoFragment extends Fragment {
                 builder.setTitle("Enter reminder note");
 
                 final EditText input = new EditText(getContext());
-                input.setHint("e.g. Take medication, Appointment at 5pm");
+                input.setHint("e.g Appointment at 5pm");
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 input.setLines(2);
                 input.setMinLines(2);
@@ -149,18 +152,23 @@ public class InjuryInfoFragment extends Fragment {
 
                     Map<String, Object> reminder = new HashMap<>();
                     reminder.put("timestamp", date.getTimeInMillis());
-                    reminder.put("type", "Custom"); // or use other values later
+                    reminder.put("type", "Custom");
                     reminder.put("note", note.isEmpty() ? "No note" : note);
 
                     String reminderId = FirebaseFirestore.getInstance()
-                            .collection("tmp") // just to get a random Firestore-like ID
+                            .collection("tmp")
                             .document().getId();
 
                     ReminderModel reminderModel = new ReminderModel(note, date.getTimeInMillis(), reminderId);
 
 
                     reminderRepository.insert(reminderModel);
+                    Bundle analyticsBundle = new Bundle();
+                    analyticsBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "reminder_note");
+                    analyticsBundle.putString("reminder_note", note);
+                    analyticsBundle.putLong("reminder_time", date.getTimeInMillis());
 
+                    firebaseAnalytics.logEvent("set_custom_reminder", analyticsBundle);
 
                     scheduleReminder(date.getTimeInMillis(), note, reminderId);
 
@@ -207,8 +215,8 @@ public class InjuryInfoFragment extends Fragment {
             return;
         }
 
-        Spinner spinnerMood = requireView().findViewById(R.id.spinner_mood); // get mood spinner
-        String mood = spinnerMood.getSelectedItem().toString(); // get selected mood
+        Spinner spinnerMood = requireView().findViewById(R.id.spinner_mood);
+        String mood = spinnerMood.getSelectedItem().toString();
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -219,6 +227,12 @@ public class InjuryInfoFragment extends Fragment {
         note.put("mood", mood);
 
         etNoteInput.setEnabled(false);
+        Bundle noteBundle = new Bundle();
+        noteBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "injury_note");
+        noteBundle.putString("injury_id", injuryId);
+        noteBundle.putInt("pain_level", seekBarPain.getProgress());
+
+        firebaseAnalytics.logEvent("save_note", noteBundle);
 
         FirebaseFirestore.getInstance()
                 .collection("users")
@@ -231,6 +245,8 @@ public class InjuryInfoFragment extends Fragment {
                     Toast.makeText(getContext(), "Note saved", Toast.LENGTH_SHORT).show();
                     etNoteInput.setText("");
                     etNoteInput.setEnabled(true);
+                    seekBarPain.setProgress(0);
+
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Saved offline. Will sync later.", Toast.LENGTH_SHORT).show();
@@ -247,7 +263,7 @@ public class InjuryInfoFragment extends Fragment {
         intent.putExtra("note", note);
         intent.putExtra("reminderId", reminderId);
         intent.putExtra("injuryId", injuryId);
-        intent.putExtra("userId", userId);  // ✅ Pass userId
+        intent.putExtra("userId", userId);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getContext(),

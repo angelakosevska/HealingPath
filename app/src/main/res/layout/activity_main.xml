@@ -20,7 +20,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:logo="@drawable/injury"
             app:title="@string/app_name"
             app:titleTextColor="@color/colorBackground" />
 

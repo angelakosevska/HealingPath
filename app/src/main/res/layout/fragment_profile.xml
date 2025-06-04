@@ -37,7 +37,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/edit_profile"
                 android:src="@android:drawable/ic_menu_edit"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="@color/colorAccent" />
         </LinearLayout>
 
         <!-- Profile Details -->

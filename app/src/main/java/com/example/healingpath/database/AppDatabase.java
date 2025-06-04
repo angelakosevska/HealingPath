@@ -14,5 +14,5 @@ import com.example.healingpath.models.ReminderModel;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract InjuryDao injuryDao();
     public abstract NoteDao noteDao();
-    public abstract ReminderDao reminderDao(); // ⬅️ ADD THIS
+    public abstract ReminderDao reminderDao();
 }
