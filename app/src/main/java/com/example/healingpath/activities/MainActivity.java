@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
                     .beginTransaction()
                     .replace(R.id.fragment_container, new InjuriesFragment())
                     .commit();
+            bottomNav.setSelectedItemId(R.id.nav_injuries);
         }
 
 
