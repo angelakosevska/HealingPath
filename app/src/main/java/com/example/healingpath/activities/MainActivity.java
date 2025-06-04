@@ -55,6 +55,9 @@ public class MainActivity extends BaseActivity {
                     .commit();
         }
 
+
+
+
         FirebaseInstallations.getInstance()
                 .getId()
                 .addOnCompleteListener(task -> {
@@ -74,10 +77,10 @@ public class MainActivity extends BaseActivity {
 
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_calendar) {
-                    selectedFragment = new CalendarFragment();
-                } else if (itemId == R.id.nav_injuries) {
+                if (itemId == R.id.nav_injuries) {
                     selectedFragment = new InjuriesFragment();
+                } else if (itemId == R.id.nav_calendar) {
+                    selectedFragment = new CalendarFragment();
                 } else if (itemId == R.id.nav_profile) {
                     selectedFragment = new ProfileFragment();
                 } else {

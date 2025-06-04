@@ -43,6 +43,9 @@
     <string name="default_web_client_id">739562432257-kh0c2oafp28ld8khd53ojk6kchguifvl.apps.googleusercontent.com</string>
     <string name="welcomeMsg">Welcome to Healing Path</string>
     <string name="writeNote">Write your note here...</string>
+    <string name="injury">Injuries</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
 
 
     <string-array name="mood_options">

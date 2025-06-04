@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- <string name="app_name">Патот на заздравување</string> -->
+    <!-- <string name="app_name">Патот на заздравување</string> -->
     <!--    <string name="email_login">Email</string>-->
     <!--    <string name="password_login">Password</string>-->
     <string name="btn_login">Логирај се</string>
@@ -39,12 +39,16 @@
     <string name="logout">Одјави се</string>
     <string name="date">Датум</string>
     <string name="note_content">Содржина на белешка</string>
-    <string name="mood">Расположение %1$s</string>
+    <string name="mood">Расположение: %1$s</string>
+    <string name="mood2">Расположение:</string>
     <string name="time">Време</string>
     <string name="choose_language">Одбери јазик</string>
     <string name="edit_profile">Измени го профилот</string>
     <string name="welcomeMsg">Добредојде во Healing Path</string>
     <string name="writeNote">Внеси белешка...</string>
+    <string name="injury">Повреди</string>
+    <string name="calendar">Календар</string>
+    <string name="profile">Профил</string>
     <string-array name="mood_options">
         <item>🙂 Неутрално</item>
         <item>😊 Среќен/Среќна</item>
