@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
 
-    <!-- Top toggle buttons styled like top nav -->
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/top_nav_toggle"
         android:layout_width="match_parent"
