@@ -65,7 +65,7 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.buttonLoginAsGuest).setOnClickListener(v -> signInAnonymously());
         findViewById(R.id.buttonLoginWithGoogle).setOnClickListener(v -> signInWithGoogle());
 
-        // Set up the clickable and colored "Register" text
+
         String text = getString(R.string.register_prompt).replaceAll("<b>", "").replaceAll("</b>", "");
         String clickableText = getString(R.string.register_text);
 
@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity {
         int start = text.indexOf(clickableText);
         int end = start + clickableText.length();
 
-// Make "Register" clickable
+
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -82,11 +82,10 @@ public class LoginActivity extends BaseActivity {
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-// Apply custom color from colors.xml
+
         int registerColor = ContextCompat.getColor(this, R.color.colorPrimaryLight);
         spannableString.setSpan(new ForegroundColorSpan(registerColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-// Set the styled text on the TextView
         textViewRegister.setText(spannableString);
         textViewRegister.setMovementMethod(LinkMovementMethod.getInstance());
 

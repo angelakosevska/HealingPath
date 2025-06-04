@@ -8,7 +8,7 @@
     <string name="login_as_guest">Продолжи анонимно</string>
     <string name="login_with_google">Логирај се со Google</string>
     <string name="login_with_facebook">Логирај се со Facebook</string>
-    <string name="don_t_have_an_account_register">Немаш профил? Регистрирај се!</string>
+
     <string name="register_prompt">Немаш профил? Регистрирај се!</string>
     <string name="register_text">Регистрирај се!</string>
     <string name="app_logo">App Logo</string>
@@ -20,7 +20,9 @@
     <string name="confirm_password">Потврди лозинка</string>
     <string name="register">Регистрирај се</string>
     <string name="forgot_password">Заборавена лозинка?</string>
-    <string name="already_have_an_account_login">Имаш профил? Логирај се</string>
+
+    <string name="login_prompt">Имаш профил? Најави се! </string>
+    <string name="login_text">Најави се!</string>
     <string name="add_injury">Додај повреда</string>
     <string name="title">Наслов</string>
     <string name="description">Опис</string>
@@ -38,6 +40,9 @@
     <string name="note_content">Содржина на белешка</string>
     <string name="mood">Расположение</string>
     <string name="time">Време</string>
+    <string name="choose_language">Одбери јазик</string>
+    <string name="edit_profile">Измени го профилот</string>
+    <string name="welcomeMsg">Добредојде во Healing Path</string>
     <string-array name="mood_options">
         <item>🙂 Неутрално</item>
         <item>😊 Среќен/Среќна</item>

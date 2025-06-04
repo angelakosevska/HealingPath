@@ -20,6 +20,7 @@ import java.util.Locale;
 import com.example.healingpath.models.User;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.healingpath.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,35 +63,33 @@ public class RegisterActivity extends BaseActivity {
         editTextConfirmPasswordRegister = findViewById(R.id.editTextConfirmPasswordRegister);
 
         buttonRegister = findViewById(R.id.buttonRegister);
-        textViewLogin = findViewById(R.id.textViewLogin); // "Already have an account? Login"
-
         buttonRegister.setOnClickListener(v -> registerUser());
+        textViewLogin = findViewById(R.id.textViewLogin);
 
-        // Set clickable "Login" text with color and click listener
-        String text = "Already have an account? Login";  // Full sentence
+
+        String text = getString(R.string.login_prompt).replaceAll("<b>", "").replaceAll("</b>", "");
+        String clickableText = getString(R.string.login_text);
+
         SpannableString spannableString = new SpannableString(text);
 
-        // Find the start and end of the word "Login"
-        int start = text.indexOf("Login");
-        int end = start + "Login".length();
+        int start = text.indexOf(clickableText);
+        int end = start + clickableText.length();
 
-        // Make "Login" clickable
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                // When clicked, navigate to LoginActivity
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                finish(); // Optional: close RegisterActivity so user can't return via back button
+                finish();
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Set color for the word "Login"
-        int loginColor = getResources().getColor(R.color.colorPrimaryLight);
+        int loginColor = ContextCompat.getColor(this, R.color.colorPrimaryLight);
         spannableString.setSpan(new ForegroundColorSpan(loginColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Set the SpannableString to the TextView and enable click handling
         textViewLogin.setText(spannableString);
-        textViewLogin.setMovementMethod(LinkMovementMethod.getInstance());  // Enable clickability
+        textViewLogin.setMovementMethod(LinkMovementMethod.getInstance());
+
+
     }
 
     private void registerUser() {

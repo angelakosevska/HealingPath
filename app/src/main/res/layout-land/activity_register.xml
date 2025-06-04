@@ -86,7 +86,7 @@
             android:layout_marginTop="24dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/already_have_an_account_login"
+
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp" />
     </LinearLayout>
