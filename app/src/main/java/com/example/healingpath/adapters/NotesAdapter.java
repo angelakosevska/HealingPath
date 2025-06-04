@@ -61,23 +61,28 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         NoteItem note = notesList.get(position);
+        Context context = holder.itemView.getContext();
+
         holder.noteText.setText(note.getNote());
-        holder.painLevel.setText("Pain: " + note.getPain());
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(note.getTimestamp()));
+
+        holder.painLevel.setText(context.getString(R.string.pain_level, note.getPain()));
+
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .format(new Date(note.getTimestamp()));
         holder.timestamp.setText(date);
+
         String moodEmoji = note.getMood() != null ? note.getMood() : "😐";
-        holder.mood.setText("Mood: " + moodEmoji);
+        holder.mood.setText(context.getString(R.string.mood, moodEmoji));
 
         int pain = note.getPain();
         int index = Math.max(0, Math.min(9, pain - 1));
-
-        int[] painColors = getPainColors(holder.itemView.getContext());
+        int[] painColors = getPainColors(context);
 
         GradientDrawable background = new GradientDrawable();
         background.setColor(painColors[index]);
         background.setCornerRadius(24f);
-
         holder.noteLayout.setBackground(background);
+
         holder.itemView.setOnLongClickListener(v -> {
             if (longClickListener != null) {
                 longClickListener.onNoteLongClick(note, holder.getAdapterPosition());
@@ -85,8 +90,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             }
             return false;
         });
-
     }
+
 
     @Override
     public int getItemCount() {

@@ -32,17 +32,19 @@
     <string name="notes">Белешки</string>
     <string name="reminders">Потсетници</string>
     <string name="log">Внеси</string>
-    <string name="pain_level">Степен на болка</string>
+    <string name="pain_level">Степен на болка: %1$d</string>
+    <string name="pain_level2">Степен на болка:</string>
     <string name="set_reminder">Додај потсетник</string>
     <string name="name">Целосно име</string>
     <string name="logout">Одјави се</string>
     <string name="date">Датум</string>
     <string name="note_content">Содржина на белешка</string>
-    <string name="mood">Расположение</string>
+    <string name="mood">Расположение %1$s</string>
     <string name="time">Време</string>
     <string name="choose_language">Одбери јазик</string>
     <string name="edit_profile">Измени го профилот</string>
     <string name="welcomeMsg">Добредојде во Healing Path</string>
+    <string name="writeNote">Внеси белешка...</string>
     <string-array name="mood_options">
         <item>🙂 Неутрално</item>
         <item>😊 Среќен/Среќна</item>

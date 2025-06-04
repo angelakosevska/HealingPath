@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="14sp"
-            android:text="@string/pain_level"
+            android:text="@string/pain_level2"
             android:textColor="@color/colorPrimary" />
 
         <TextView
@@ -68,8 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:hint="Write your note here..."
+            android:gravity="top"
+            android:hint="@string/writeNote"
             android:minLines="3" />
 
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="14sp"
-            android:text="Mood:"
+            android:text="@string/mood2"
             android:textColor="@color/colorPrimary" />
 
         <Spinner

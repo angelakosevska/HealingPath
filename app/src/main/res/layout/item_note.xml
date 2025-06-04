@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:padding="4dp"
-
         android:text="@string/pain_level"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
