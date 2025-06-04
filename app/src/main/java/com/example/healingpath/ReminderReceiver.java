@@ -36,7 +36,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.injury)
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("Reminder")
                 .setContentText(note != null ? note : "You have a reminder")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -64,7 +64,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            channel.setSound(soundUri, audioAttributes); // ✅ Enable sound
+            channel.setSound(soundUri, audioAttributes);
 
             NotificationManager manager = context.getSystemService(NotificationManager.class);
             if (manager != null) {

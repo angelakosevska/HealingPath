@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Патот на заздравување</string>
+   <!-- <string name="app_name">Патот на заздравување</string> -->
     <!--    <string name="email_login">Email</string>-->
     <!--    <string name="password_login">Password</string>-->
     <string name="btn_login">Логирај се</string>

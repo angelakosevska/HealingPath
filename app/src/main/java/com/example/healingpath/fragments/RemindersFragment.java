@@ -79,8 +79,6 @@ public class RemindersFragment extends Fragment {
                     .show();
         });
 
-
-
         ReminderViewModelFactory factory = new ReminderViewModelFactory(requireActivity().getApplication(), injuryId);
         viewModel = new ViewModelProvider(this, factory).get(ReminderViewModel.class);
 

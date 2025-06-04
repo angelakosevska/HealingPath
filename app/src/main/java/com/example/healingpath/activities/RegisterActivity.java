@@ -37,7 +37,6 @@ public class RegisterActivity extends BaseActivity {
     private Button buttonRegister;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private TextView textViewLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class RegisterActivity extends BaseActivity {
 
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(v -> registerUser());
-        textViewLogin = findViewById(R.id.textViewLogin);
+        TextView textViewLogin = findViewById(R.id.textViewLogin);
 
 
         String text = getString(R.string.login_prompt).replaceAll("<b>", "").replaceAll("</b>", "");
@@ -79,7 +78,6 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View widget) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                finish();
             }
         }, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

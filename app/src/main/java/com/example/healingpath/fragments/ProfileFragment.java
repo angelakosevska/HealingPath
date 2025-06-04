@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
             textViewDOB.setVisibility(View.GONE);
             textViewEmail.setVisibility(View.GONE);
             editButton.setVisibility(View.GONE);
-            logoutButton.setText("Exit Guest Mode");
+          //  logoutButton.setText("Exit Guest Mode");
         } else {
             // Regular user: load profile data
             loadUserProfile();
@@ -124,11 +124,11 @@ public class ProfileFragment extends Fragment {
         int selectedColor = ContextCompat.getColor(requireContext(), R.color.colorAccent);
         int defaultColor = ContextCompat.getColor(requireContext(), android.R.color.darker_gray);
 
-        // Update colors
+
         english.setTextColor(isMacedonianSelected ? defaultColor : selectedColor);
         macedonian.setTextColor(isMacedonianSelected ? selectedColor : defaultColor);
 
-        // Update font weight
+
         english.setTypeface(null, isMacedonianSelected ? Typeface.NORMAL : Typeface.BOLD);
         macedonian.setTypeface(null, isMacedonianSelected ? Typeface.BOLD : Typeface.NORMAL);
     }
@@ -176,21 +176,20 @@ public class ProfileFragment extends Fragment {
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", (dialog, which) -> {
 
-                    // Step 1: Sign out from Firebase
+
                     mAuth.signOut();
 
-                    // Step 2: Sign out and revoke Google account access
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestIdToken(getString(R.string.default_web_client_id)) // Make sure this matches the one in google-services.json
+                            .requestIdToken(getString(R.string.default_web_client_id))
                             .requestEmail()
                             .build();
 
                     GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
 
-                    // This ensures Smart Lock doesn't automatically sign in again
+
                     googleSignInClient.revokeAccess().addOnCompleteListener(task -> {
                         googleSignInClient.signOut().addOnCompleteListener(task2 -> {
-                            // Then go to Login screen
+
                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
